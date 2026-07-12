@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+@keyframes imageGrowIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-image-grow {
+  animation: imageGrowIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes imageShrinkOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.6) translateY(50px);
+  }
+}
+
+.animate-image-shrink {
+  animation: imageShrinkOut 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInRightInfo {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  opacity: 0;
+  animation: slideInRightInfo 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+@keyframes slideOutRightInfo {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+}
+
+.animate-slide-out-right {
+  animation: slideOutRightInfo 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
