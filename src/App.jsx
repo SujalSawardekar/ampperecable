@@ -6,6 +6,7 @@ import 'aos/dist/aos.css';
 // Common Components
 import Header from './components/Header';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 
 // Pages
 import Home from './pages/Home';
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <Router>
+      <CustomCursor />
       <div className="flex flex-col min-h-screen bg-white">
         <Header />
         

@@ -73,3 +73,52 @@ h1, h2, h3, h4, h5, h6 {
 .animate-slide-out-right {
   animation: slideOutRightInfo 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+/* ==========================================
+   Global Custom Cursor Styles
+   ========================================== */
+@media (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active input,
+  body.custom-cursor-active select,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+/* Outer Ring States */
+.custom-cursor-active div.cursor-hover:not(.bg-white) {
+  width: 3.5rem !important; /* 56px */
+  height: 3.5rem !important;
+  border-width: 0px !important;
+  background-color: #ffffff !important;
+  mix-blend-mode: difference !important;
+}
+
+.custom-cursor-active div.cursor-clicked:not(.bg-white) {
+  width: 1.5rem !important; /* 24px */
+  height: 1.5rem !important;
+  border-color: #ef4444 !important; /* Red-500 */
+  background-color: transparent !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Inner Dot States */
+.custom-cursor-active div.cursor-hover.bg-white {
+  width: 0px !important;
+  height: 0px !important;
+  opacity: 0 !important;
+}
+
+.custom-cursor-active div.cursor-clicked.bg-white {
+  width: 0.25rem !important; /* 4px */
+  height: 0.25rem !important;
+  opacity: 1 !important;
+}
+
+
+
