@@ -1,8 +1,14 @@
 import React from 'react';
 import { O } from '../assets';
 import Breadcrumbs from '../components/Breadcrumbs';
+import useSEO from '../hooks/useSEO';
 
 const Clients = () => {
+  useSEO(
+    "Our Clients & Trusted Brands | Amppere Cable",
+    "Amppere Cable is proud to be trusted by great brands and leading companies worldwide for certified, durable wires and cables."
+  );
+
   const clientLogos = [
     O.comany1,   // Schneider Electric
     O.comany2,   // Kotak
@@ -54,9 +60,6 @@ const Clients = () => {
               <p className="text-gray-500 text-base md:text-lg mb-8 leading-relaxed">
                 Amppere Cable is committed to delivering high-quality, reliable cable solutions. Our dedication to excellence has made us the preferred choice for leading enterprises worldwide.
               </p>
-              <button className="bg-[#E91F1F] hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full transition-colors shadow-lg">
-                View All Customers
-              </button>
             </div>
 
             {/* Right Side: Logo Grid */}

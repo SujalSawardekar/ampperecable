@@ -3,6 +3,7 @@ import AOS from 'aos';
 import { Link } from 'react-router-dom';
 import { O } from '../assets';
 import Breadcrumbs from '../components/Breadcrumbs';
+import useSEO from '../hooks/useSEO';
 
 // --- Animated Counter Hook ---
 const useCounter = (target, duration = 2000, start = false) => {
@@ -375,6 +376,11 @@ const ManufacturingSection = () => {
 
 // --- Main About Page ---
 const About = () => {
+  useSEO(
+    "Wire & Cable Manufacturer in Maharashtra | Amppere Cable",
+    "Amppere Cable is a trusted wire and cable manufacturer based in Maharashtra, delivering quality-tested electrical cables for industrial, commercial and domestic use."
+  );
+
   const [activeTab, setActiveTab] = useState('values');
   const [statsStarted, setStatsStarted] = useState(false);
   const statsRef = useRef(null);

@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { blogs } from '../blogs';
 import Breadcrumbs from '../components/Breadcrumbs';
+import useSEO from '../hooks/useSEO';
 
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const post = blogs.find(b => String(b.id) === String(id));
+
+  useSEO(
+    post?.fullContent?.metaTitle || `${post?.title} | Amppere Cable Blog`,
+    post?.cardSummary || post?.fullContent?.intro || "Read the latest wire and cable industry article from Amppere Cable."
+  );
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

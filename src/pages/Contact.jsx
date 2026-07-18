@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import { O } from '../assets';
 import Breadcrumbs from '../components/Breadcrumbs';
+import useSEO from '../hooks/useSEO';
 
-const Contact = () => {
+const Contact = ({ isDealership = false }) => {
+  useSEO(
+    isDealership
+      ? "Cable Dealers & Distributors – Become a Partner | Amppere Cable"
+      : "Contact Wire & Cable Manufacturers | Amppere Cable",
+    isDealership
+      ? "Partner with Amppere Cable as an authorised dealer or distributor. Explore wire and cable dealership opportunities across Maharashtra."
+      : "Get in touch with Amppere Cable for custom wire and cable manufacturing queries. Contact our team in Maharashtra, India."
+  );
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -51,7 +61,9 @@ const Contact = () => {
       
       {/* Header Section */}
       <div className="pt-16 pb-12 text-center flex flex-col items-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          {isDealership ? "Authorised Dealership Program" : "Contact Us"}
+        </h1>
       </div>
 
       {/* Main Content: 2-Column Grid */}
@@ -59,9 +71,13 @@ const Contact = () => {
         
         {/* Left Column: Contact Information */}
         <div className="bg-[#111111] p-8 md:p-12 rounded-3xl shadow-xl border border-white/5 flex flex-col justify-center h-full">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Contact Information</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            {isDealership ? "Dealership Enquiries" : "Contact Information"}
+          </h2>
           <p className="text-gray-400 mb-10 leading-relaxed text-sm md:text-base">
-            Have questions or need help with your digital project? Our team is always ready to assist you with professional solutions and reliable support. Feel free to contact us anytime and we will respond as quickly as possible.
+            {isDealership
+              ? "Partner with Amppere Cable to distribute premium wires and cables. Fill out the form below or reach out directly to learn about dealership opportunities in Maharashtra and across India."
+              : "Have questions or need help with your wire or cable requirements? Our team is always ready to assist you with professional solutions and reliable support. Feel free to contact us anytime and we will respond as quickly as possible."}
           </p>
           
           <div className="space-y-8">
@@ -126,12 +142,16 @@ const Contact = () => {
             <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>
             </svg>
-            <span className="text-sm font-medium">Get in Touch</span>
+            <span className="text-sm font-medium">{isDealership ? "Apply Now" : "Get in Touch"}</span>
           </div>
           
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Get In Touch</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            {isDealership ? "Dealership Application" : "Get In Touch"}
+          </h2>
           <p className="text-gray-400 mb-8 leading-relaxed text-sm md:text-base">
-            We would love to hear about your project and help you grow your business online. Fill out the contact form and our team will get back to you soon with the best possible solution for your needs.
+            {isDealership
+              ? "Interested in joining our dealer or distributor network? Provide your details below and our partnership team will get back to you with the application details."
+              : "We would love to hear about your wire or cable requirements. Fill out the contact form and our team will get back to you soon with the best possible solution for your needs."}
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -166,7 +186,7 @@ const Contact = () => {
               <input
                 type="text"
                 name="service"
-                placeholder="Service You're Interested"
+                placeholder={isDealership ? "Company / Firm Name" : "Service You're Interested"}
                 className="w-full bg-[#1a1a1a] border border-white/5 text-white px-5 py-4 rounded-xl focus:outline-none focus:border-red-600 transition-colors"
               />
             </div>
@@ -175,7 +195,7 @@ const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              placeholder="Message *"
+              placeholder={isDealership ? "Tell us about your region & business model *" : "Message *"}
               rows="4"
               className="w-full bg-[#1a1a1a] border border-white/5 text-white px-5 py-4 rounded-xl focus:outline-none focus:border-red-600 transition-colors resize-none"
             ></textarea>
@@ -188,7 +208,7 @@ const Contact = () => {
               disabled={loading}
               className="mt-4 flex items-center justify-center gap-2 bg-red-600 text-white font-bold px-8 py-3.5 rounded-full hover:bg-red-700 transition-all duration-300 shadow-md active:scale-95 disabled:opacity-50"
             >
-              {loading ? "Sending..." : "Send Message"}
+              {loading ? "Submitting..." : (isDealership ? "Submit Application" : "Send Message")}
               {!loading && (
                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 12h14M12 5l7 7-7 7"/>

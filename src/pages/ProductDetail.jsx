@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import FeaturedSlider from '../components/FeaturedSlider';
 import { products } from '../products';
 import { categories } from '../categories';
+import useSEO from '../hooks/useSEO';
 
 const getCategoryByProductName = (productName) => {
   for (const cat of categories) {
@@ -67,6 +68,23 @@ const ProductDetail = () => {
   const product = useMemo(() => {
     return products.find(p => p.productName === productName);
   }, [productName]);
+
+  useSEO(
+    product ? `${product.productName} – Wire & Cable Manufacturer | Amppere Cable` : "Product Details | Amppere Cable",
+    product ? (product.description || (product.data && product.data[0]?.description)) : "View detailed specifications of Amppere Cable products."
+  );
+
+  const categoryName = useMemo(() => {
+    return getCategoryByProductName(productName);
+  }, [productName]);
+
+  const remainingProducts = useMemo(() => {
+    const currentCategory = categories.find(c => c.name === categoryName);
+    if (!currentCategory) return [];
+    return currentCategory.products
+      .map(([name]) => products.find(p => p.productName === name))
+      .filter(p => p && p.productName !== productName);
+  }, [categoryName, productName]);
 
   if (!product) {
     return (
@@ -211,8 +229,61 @@ const ProductDetail = () => {
 
       <div className="h-2 sm:h-3 w-full bg-[#880000]" />
       
+      {/* Remaining Category Products Showcase (Smaller Version) */}
+      {remainingProducts.length > 0 && (
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-14 pb-12 pt-16">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#1a1a6e] font-outfit text-left flex items-center gap-3">
+                <span className="h-8 w-1.5 bg-[#cc1111] rounded-full inline-block"></span>
+                Other {categoryName} Products
+              </h3>
+              <p className="text-gray-500 text-sm md:text-base mt-1 text-left font-inter">
+                Explore rest of our premium range in this category
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {remainingProducts.map((p) => (
+              <Link 
+                to={`/product/${p.productName}`} 
+                key={p.productName}
+                className="group bg-white rounded-2xl border border-gray-200 hover:border-[#cc1111]/30 p-4 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-4"
+              >
+                {/* Circular Image on the Left */}
+                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#b0c8e8] to-[#1a2f6a] border border-gray-100">
+                  <img 
+                    src={p.headerImg} 
+                    alt={p.productName} 
+                    className="w-full h-full object-cover object-bottom transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                
+                {/* Product Details on the Right */}
+                <div className="flex-1 min-w-0 text-left">
+                  <h4 className="text-base font-bold text-gray-900 group-hover:text-[#cc1111] transition-colors duration-300 font-outfit truncate">
+                    {p.productName}
+                  </h4>
+                  <p className="text-gray-500 text-xs leading-relaxed mt-1 line-clamp-2 font-inter">
+                    {p.description || (p.data && p.data[0]?.description) || `${p.productName} engineered for optimal performance.`}
+                  </p>
+                  <div className="flex items-center gap-1 text-[#cc1111] font-semibold text-xs mt-2 group-hover:translate-x-1 transition-transform duration-300 font-inter">
+                    View Details
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Alternative Category Promo Banner */}
       {getCategoryByProductName(productName) && (
-        <div className="w-full max-w-7xl mx-auto px-4 md:px-14 pb-16 pt-12">
+        <div className="w-full max-w-7xl mx-auto px-4 md:px-14 pb-16 pt-6">
           <div className="bg-gradient-to-r from-[#1a1a6e] to-[#3d6bb5] rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 transform hover:scale-[1.01] transition-transform duration-300">
             <div>
               <h3 className="text-white text-2xl md:text-3xl font-extrabold mb-3 font-inter">
@@ -222,14 +293,14 @@ const ProductDetail = () => {
                 Looking for {getCategoryByProductName(productName) === "Fire Safety" ? "Industrial Cables" : "Fire Safety"}? We offer a comprehensive range of high-performance cables meticulously designed for durability and safety.
               </p>
             </div>
-            <a href={`/products?category=${encodeURIComponent(getCategoryByProductName(productName) === "Fire Safety" ? "Industrial Cables" : "Fire Safety")}`} className="flex-shrink-0">
+            <Link to={`/products?category=${encodeURIComponent(getCategoryByProductName(productName) === "Fire Safety" ? "Industrial Cables" : "Fire Safety")}`} className="flex-shrink-0">
               <button className="bg-white text-[#1a1a6e] font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-[#CDEF46] transition-all duration-300 flex items-center gap-2 font-inter active:scale-95">
                 View Category
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       )}

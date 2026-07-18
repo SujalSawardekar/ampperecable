@@ -18,6 +18,7 @@ import ProductDetail from './pages/ProductDetail';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
+import Preloader from './components/Preloader';
 
 function App() {
   useEffect(() => {
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <Router>
+      <Preloader />
       <CustomCursor />
       <div className="flex flex-col min-h-screen bg-white">
         <Header />

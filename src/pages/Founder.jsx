@@ -1,8 +1,14 @@
 import React from 'react';
 import { O } from '../assets';
 import Breadcrumbs from '../components/Breadcrumbs';
+import useSEO from '../hooks/useSEO';
 
 const Founder = () => {
+  useSEO(
+    "Sandeep Sawant – Founder & MD | Amppere Cable",
+    "Read the message from Sandeep Sawant, Founder & MD of Amppere Cable. Under his leadership, Amppere Cable has built over 30 years of trust in cable manufacturing."
+  );
+
   const certificates = [
     { title: "AMPPERE CABLE GST CERTIFICATE" },
     { title: "AMPPERE-CABLE-ISO-9001-2015-Final" },

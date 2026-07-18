@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { blogs } from '../blogs';
 import Breadcrumbs from '../components/Breadcrumbs';
+import useSEO from '../hooks/useSEO';
 
 // Blog Card Component
 const BlogCard = ({ post }) => {
@@ -254,6 +255,11 @@ const BlogDetailModal = ({ post, onClose }) => {
 
 // Main Blog List Page
 const Blog = () => {
+  useSEO(
+    "Wires & Cables Insights Blog | Amppere Cable",
+    "Read the latest industry insights, technical articles, and updates on electrical safety, fire-survival cables, and instrumentation wires from Amppere Cable."
+  );
+
   return (
     <div style={{ background: "#04040c", color: "#fff", minHeight: "100vh" }}>
       <Breadcrumbs
