@@ -52,6 +52,12 @@ const ShareIcon = () => (
 
 const SocialCard = ({ card }) => {
   const [hovered, setHovered] = useState(false);
+  
+  // Custom glow shadows depending on platform
+  let glowColor = "rgba(239, 35, 52, 0.15)";
+  if (card.platform === "linkedin") glowColor = "rgba(10, 102, 194, 0.25)";
+  if (card.platform === "instagram") glowColor = "rgba(214, 36, 159, 0.25)";
+  if (card.platform === "facebook") glowColor = "rgba(24, 119, 242, 0.25)";
 
   return (
     <a
@@ -63,34 +69,47 @@ const SocialCard = ({ card }) => {
       style={{
         display: "flex",
         flexDirection: "column",
-        background: "#ffffff",
-        borderRadius: 16,
+        background: "rgba(255, 255, 255, 0.02)",
+        backdropFilter: "blur(20px)",
+        borderRadius: 24,
+        border: hovered ? `1px solid ${card.color || "#ef2334"}` : "1px solid rgba(255, 255, 255, 0.08)",
         overflow: "hidden",
         width: "100%",
-        maxWidth: 300,
-        minWidth: 240,
-        boxShadow: hovered ? "0 12px 40px rgba(0,0,0,0.35)" : "0 4px 20px rgba(0,0,0,0.18)",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        transition: "box-shadow 0.25s ease, transform 0.25s ease",
+        maxWidth: 340,
+        minWidth: 280,
+        boxShadow: hovered ? `0 25px 50px -12px ${glowColor}` : "0 8px 32px 0 rgba(0, 0, 0, 0.3)",
+        transform: hovered ? "translateY(-6px) scale(1.01)" : "translateY(0) scale(1)",
+        transition: "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)",
         cursor: "pointer",
         textDecoration: "none",
         color: "inherit",
         flexShrink: 0
       }}
     >
+      {/* Top Brand Stripe */}
+      <div 
+        style={{ 
+          height: 4, 
+          width: "100%", 
+          background: card.platform === "linkedin" ? "#0A66C2" : 
+                      card.platform === "instagram" ? "linear-gradient(to right, #fdf497, #fd5949, #d6249f, #285AEB)" : 
+                      "#1877F2" 
+        }} 
+      />
+
       {/* Header Info */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 14px 10px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 18px 12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img
             src={O.logo}
             alt="Amppere Cable"
-            style={{ width: 38, height: 38, borderRadius: "50%", objectFit: "contain", background: "#ffffff", padding: 2, flexShrink: 0 }}
+            style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "contain", background: "#ffffff", padding: 2, flexShrink: 0 }}
           />
           <div>
-            <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: "#111", lineHeight: 1.3 }}>
+            <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: "#ffffff", lineHeight: 1.3 }}>
               {card.handle}
             </p>
-            <p style={{ margin: 0, fontSize: 11, color: "#888", lineHeight: 1.3 }}>
+            <p style={{ margin: 0, fontSize: 11, color: "#9ca3af", lineHeight: 1.3, marginTop: 2 }}>
               {card.timestamp}
             </p>
           </div>
@@ -99,25 +118,32 @@ const SocialCard = ({ card }) => {
       </div>
 
       {/* Post Text */}
-      <div style={{ padding: "0 14px 12px" }}>
-        <p className="font-inter" style={{ margin: 0, fontSize: 13, color: "#333", lineHeight: 1.6 }}>
+      <div style={{ padding: "0 18px 16px", flexGrow: 1 }}>
+        <p className="font-inter" style={{ margin: 0, fontSize: 13, color: "#d1d5db", lineHeight: 1.6 }}>
           {card.text}
         </p>
       </div>
 
       {/* Post Image */}
-      <div style={{ width: "100%", height: "90%", aspectRatio: "4/3", overflow: "hidden", background: "#eee" }}>
+      <div style={{ width: "100%", aspectRatio: "4/3", overflow: "hidden", background: "rgba(255, 255, 255, 0.05)" }}>
         <img
           src={card.image}
           alt="Social Media Post"
-          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          style={{ 
+            width: "100%", 
+            height: "100%", 
+            objectFit: "cover", 
+            display: "block",
+            transform: hovered ? "scale(1.05)" : "scale(1)",
+            transition: "transform 0.4s ease"
+          }}
         />
       </div>
 
       {/* Engagement bar */}
-      <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "10px 14px", borderTop: "1px solid #f0f0f0", color: "#555" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "14px 18px", borderTop: "1px solid rgba(255, 255, 255, 0.06)", color: "#9ca3af" }}>
         {card.engagement.map((item, idx) => (
-          <div key={idx} style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 13, color: "#555" }}>
+          <div key={idx} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: hovered ? "#ffffff" : "#9ca3af", transition: "color 0.3s ease" }}>
             {item.icon}
             <span className="font-inter">{item.count}</span>
           </div>
@@ -131,6 +157,8 @@ const SocialShowcase = () => {
   const cards = [
     {
       handle: "Amppere Cable",
+      platform: "linkedin",
+      color: "#0A66C2",
       timestamp: "2 hours ago",
       platformIcon: <LinkedInPlatformIcon />,
       profileUrl: "https://www.linkedin.com/company/amppere-cable",
@@ -144,6 +172,8 @@ const SocialShowcase = () => {
     },
     {
       handle: "amppere_cable",
+      platform: "instagram",
+      color: "#d6249f",
       timestamp: "5 hours ago",
       platformIcon: <InstagramPlatformIcon />,
       profileUrl: "https://www.instagram.com/ampperecable",
@@ -152,20 +182,22 @@ const SocialShowcase = () => {
       engagement: [
         { icon: <LikeIcon />, count: 856 },
         { icon: <CommentIcon />, count: 34 },
-        { icon: <ShareIcon />, count: "" }
+        { icon: <ShareIcon />, count: 112 }
       ]
     },
     {
       handle: "Amppere Cable",
+      platform: "facebook",
+      color: "#1877F2",
       timestamp: "Yesterday at 10:30 AM",
       platformIcon: <FacebookPlatformIcon />,
       profileUrl: "https://www.facebook.com/people/Amppere-Cable/61566408188370/",
       text: "Join Amppere Cable this weekend at the International Builders' Show! We'll be showcasing our residential wiring solutions #wirecable#amppere 🎉",
       image: O.post3,
       engagement: [
-        { icon: <LikeIcon />, count: "Like" },
-        { icon: <CommentIcon />, count: "Comment" },
-        { icon: <ShareIcon />, count: "Share" }
+        { icon: <LikeIcon />, count: 342 },
+        { icon: <CommentIcon />, count: 28 },
+        { icon: <ShareIcon />, count: 56 }
       ]
     }
   ];

@@ -88,20 +88,27 @@ const AboutShowcase = () => {
               An emerging manufacturer in the cable industry, the company boasts 30 years of core manufacturing experience and has been producing wires and cables independently for the past 4 years.
               <br />
               <a 
-                href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link" 
+                href="/AMPPERE-CABLE-ISO-9001-2015-Final.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-red-600 font-bold hover:text-red-500 hover:underline transition-colors cursor-pointer"
               >
-                Accredited with ISO-9001:2008 certification and registered under MSME
+                Accredited with ISO-9001:2015 certification and registered under MSME
               </a>
               , the company also holds <a 
-                href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link" 
+                href="/CE.jpeg" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-white font-bold hover:text-red-500 hover:underline transition-colors cursor-pointer"
               >
-                CE and RoHS certifications
+                CE
+              </a> and <a 
+                href="/RoHS AMPPERE CABLE.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-white font-bold hover:text-red-500 hover:underline transition-colors cursor-pointer"
+              >
+                RoHS certifications
               </a>.
             </p>
             <p className="text-white mb-6 leading-relaxed">

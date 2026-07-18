@@ -10,11 +10,11 @@ const Founder = () => {
   );
 
   const certificates = [
-    { title: "AMPPERE CABLE GST CERTIFICATE" },
-    { title: "AMPPERE-CABLE-ISO-9001-2015-Final" },
-    { title: "CE" },
-    { title: "RoHS AMPPERE CABLE" },
-    { title: "UL" }
+    { title: "AMPPERE CABLE GST CERTIFICATE", path: "/AMPPERE CABLE GST CERTIFICATE.pdf" },
+    { title: "AMPPERE-CABLE-ISO-9001-2015-Final", path: "/AMPPERE-CABLE-ISO-9001-2015-Final.pdf" },
+    { title: "CE", path: "/CE.jpeg" },
+    { title: "RoHS AMPPERE CABLE", path: "/RoHS AMPPERE CABLE.pdf" },
+    { title: "UL", path: "/UL.jpeg" }
   ];
 
   return (
@@ -59,7 +59,7 @@ const Founder = () => {
               "Looking ahead, our vision and hands-on approach are poised to elevate Amppere Cable to new heights in the national and international markets."
             </blockquote>
             <p>
-              Today, Amppere Cable is recognized for its high-quality, specialized cables, including Instrumentation, Fire Alarm, and Fire Survival Cables. The leadership has not only earned the trust of leading industrial houses but has also positioned Amppere Cable as an <a href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#cc1111] hover:underline font-bold transition-colors">ISO-9001:2015 accredited organization</a> with <a href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#cc1111] hover:underline font-semibold transition-colors">CE and RoHS certified</a> products, setting new standards in the industry.
+              Today, Amppere Cable is recognized for its high-quality, specialized cables, including Instrumentation, Fire Alarm, and Fire Survival Cables. The leadership has not only earned the trust of leading industrial houses but has also positioned Amppere Cable as an <a href="/AMPPERE-CABLE-ISO-9001-2015-Final.pdf" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#cc1111] hover:underline font-bold transition-colors">ISO-9001:2015 accredited organization</a> with <a href="/CE.jpeg" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#cc1111] hover:underline font-semibold transition-colors">CE</a> and <a href="/RoHS AMPPERE CABLE.pdf" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#cc1111] hover:underline font-semibold transition-colors">RoHS certified</a> products, setting new standards in the industry.
             </p>
           </div>
         </div>
@@ -74,7 +74,7 @@ const Founder = () => {
             {certificates.map((cert, idx) => (
               <a 
                 key={idx} 
-                href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link"
+                href={cert.path}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group cursor-pointer relative bg-[#1a1b23] border border-white/10 rounded-lg p-8 flex flex-col justify-center items-center h-48 transition-all duration-300 hover:border-[#cc1111] hover:shadow-[0_0_20px_rgba(204,17,17,0.2)] hover:-translate-y-1 block no-underline"

@@ -4,11 +4,12 @@ import { O } from '../assets';
 
 const clientLogos = [
   { name: "Schneider Electric", logo: O.comany1 },
-  { name: "Kotak", logo: O.comany2 },
-  { name: "Mahindra Aerospace", logo: O.comany3 },
-  { name: "PNB", logo: O.comany4 },
-  { name: "Dell", logo: O.comany5 },
-  { name: "MindSpace", logo: O.comany6 },
+  { name: "Kotak", logo: O.comany6 },
+  { name: "Mahindra Aerospace", logo: O.comany11 },
+  { name: "PNB", logo: O.comany5 },
+  { name: "Dell", logo: O.comany4 },
+  { name: "MindSpace", logo: O.comany3 },
+  { name: "NXP Semiconductors", logo: O.comany13 },
   { name: "Kiam", logo: O.review3 }
 ];
 

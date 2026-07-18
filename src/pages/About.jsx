@@ -37,7 +37,7 @@ const StatCard = ({ value, suffix, label, icon, startCounting }) => {
 };
 
 // --- Tab Content Components ---
-const ValuesTab = () => {
+const ValuesTab = ({ onCertificatesClick }) => {
   const values = [
     { icon: "🎯", title: "Quality First", desc: "Every cable we manufacture passes rigorous in-house testing before it leaves our facility. Our commitment to quality is non-negotiable." },
     { icon: "🔬", title: "Innovation", desc: "Continuously investing in R&D and state-of-the-art equipment to stay ahead of industry demands and international standards." },
@@ -59,18 +59,16 @@ const ValuesTab = () => {
         );
         if (isExcellence) {
           return (
-            <a 
+            <button 
               key={i} 
-              href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link" 
-              target="_blank" 
-              rel="noopener noreferrer"
+              onClick={onCertificatesClick}
               data-aos="fade-up" 
               data-aos-delay={i * 80}
-              className="p-5 block rounded-xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-red-500 hover:from-red-950/30 transition-all duration-300 group cursor-pointer no-underline text-left"
+              className="p-5 block w-full rounded-xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-red-500 hover:from-red-950/30 transition-all duration-300 group cursor-pointer text-left focus:outline-none"
             >
               {content}
               <span className="mt-3 block text-red-400 text-xs font-semibold tracking-wider group-hover:underline">View Certifications &rarr;</span>
-            </a>
+            </button>
           );
         }
         return (
@@ -86,19 +84,18 @@ const ValuesTab = () => {
 
 const CertificationsTab = () => {
   const certs = [
-    { name: "ISO 9001:2015", body: "Bureau Veritas", desc: "Quality Management System — our quality processes, documentation, and traceability are audited to international standards.", color: "from-blue-900/40 to-blue-950/20", badge: "bg-blue-900/30 text-blue-300 border-blue-700/30" },
-    { name: "CE Marking", body: "European Conformity", desc: "All applicable products comply with EU safety, health, and environmental requirements for the European market.", color: "from-yellow-900/30 to-yellow-950/20", badge: "bg-yellow-900/30 text-yellow-300 border-yellow-700/30" },
-    { name: "RoHS Compliant", body: "Restriction of Hazardous Substances", desc: "Our cables are manufactured without lead, mercury, cadmium, hexavalent chromium, and other restricted substances.", color: "from-green-900/30 to-green-950/20", badge: "bg-green-900/30 text-green-300 border-green-700/30" },
-    { name: "IEC 60331", body: "Fire Resistance Standard", desc: "Our fire survival cables are tested and certified for circuit integrity under fire conditions up to 850°C.", color: "from-red-900/30 to-red-950/20", badge: "bg-red-900/30 text-red-300 border-red-700/30" },
-    { name: "BS 6387", body: "British Standard", desc: "Fire survival cables rated CWZ — the highest performance classification for combined flame, water, and shock resistance.", color: "from-purple-900/30 to-purple-950/20", badge: "bg-purple-900/30 text-purple-300 border-purple-700/30" },
-    { name: "IS 1554 / IS 694", body: "Bureau of Indian Standards", desc: "Compliance with Indian standards for PVC-insulated and flame-retardant cables as per NBC 2016.", color: "from-orange-900/30 to-orange-950/20", badge: "bg-orange-900/30 text-orange-300 border-orange-700/30" },
+    { name: "ISO 9001:2015", body: "Bureau Veritas", desc: "Quality Management System — our quality processes, documentation, and traceability are audited to international standards.", color: "from-blue-900/40 to-blue-950/20", badge: "bg-blue-900/30 text-blue-300 border-blue-700/30", path: "/AMPPERE-CABLE-ISO-9001-2015-Final.pdf" },
+    { name: "CE Marking", body: "European Conformity", desc: "All applicable products comply with EU safety, health, and environmental requirements for the European market.", color: "from-yellow-900/30 to-yellow-950/20", badge: "bg-yellow-900/30 text-yellow-300 border-yellow-700/30", path: "/CE.jpeg" },
+    { name: "RoHS Compliant", body: "Restriction of Hazardous Substances", desc: "Our cables are manufactured without lead, mercury, cadmium, hexavalent chromium, and other restricted substances.", color: "from-green-900/30 to-green-950/20", badge: "bg-green-900/30 text-green-300 border-green-700/30", path: "/RoHS AMPPERE CABLE.pdf" },
+    { name: "UL Certification", body: "Underwriters Laboratories", desc: "UL safety certification verifying that our wire and cable products meet global safety, quality, and performance requirements.", color: "from-purple-900/30 to-purple-950/20", badge: "bg-purple-900/30 text-purple-300 border-purple-700/30", path: "/UL.jpeg" },
+    { name: "GST Registration", body: "Government of India", desc: "GST registration certificate officially verifying tax compliance and financial reliability for commercial trading across India.", color: "from-orange-900/30 to-orange-950/20", badge: "bg-orange-900/30 text-orange-300 border-orange-700/30", path: "/AMPPERE CABLE GST CERTIFICATE.pdf" },
   ];
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
       {certs.map((c, i) => (
         <a 
           key={i} 
-          href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link"
+          href={c.path}
           target="_blank"
           rel="noopener noreferrer"
           data-aos="fade-up" 
@@ -386,6 +383,10 @@ const About = () => {
   const statsRef = useRef(null);
 
   useEffect(() => {
+    AOS.refresh();
+  }, [activeTab]);
+
+  useEffect(() => {
     AOS.init({ duration: 600, once: false, mirror: true, offset: 60 });
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) setStatsStarted(true);
@@ -459,15 +460,19 @@ const About = () => {
             <p className="text-gray-400 leading-relaxed mb-4 font-open-sans">Amppere Cable combines technical prowess with a commitment to meeting our customers' unique requirements. From Fire Alarm Cables to Instrumentation Signal Cables, every product we manufacture is built to perform in the most demanding conditions.</p>
             <p className="text-gray-400 leading-relaxed font-open-sans">Equipped with international-standard machinery and comprehensive in-house testing facilities, we are a well-knitted team that delivers high-quality, reliable products — consistently, every time.</p>
             <div className="flex flex-wrap gap-2 mt-6">
-              {['ISO 9001', 'CE Certified', 'RoHS Compliant', 'IEC 60331', 'BS 6387'].map(tag => (
+              {[
+                { name: 'ISO 9001', path: '/AMPPERE-CABLE-ISO-9001-2015-Final.pdf' },
+                { name: 'CE Certified', path: '/CE.jpeg' },
+                { name: 'RoHS Compliant', path: '/RoHS AMPPERE CABLE.pdf' }
+              ].map(tag => (
                 <a 
-                  key={tag} 
-                  href="https://drive.google.com/drive/folders/1n2_qwCWmQmZo3NkSlhyv3FygYwJYY5KN?usp=drive_link" 
+                  key={tag.name} 
+                  href={tag.path} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-xs font-semibold px-3 py-1 rounded-full bg-red-950/40 border border-red-800/30 text-red-400 hover:bg-red-900/60 hover:text-white transition-all cursor-pointer no-underline"
                 >
-                  {tag}
+                  {tag.name}
                 </a>
               ))}
             </div>
@@ -486,7 +491,7 @@ const About = () => {
       </div>
 
       {/* Interactive Tabs Section */}
-      <div className="bg-gradient-to-b from-black to-[#0a0505] border-t border-white/5">
+      <div id="deep-dive-section" className="bg-gradient-to-b from-black to-[#0a0505] border-t border-white/5">
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-20">
           <div className="text-center mb-10" data-aos="fade-up">
             <p className="text-xs font-semibold text-red-500 tracking-[0.3em] uppercase mb-3">Deep Dive</p>
@@ -494,7 +499,7 @@ const About = () => {
           </div>
 
           {/* Tab Buttons */}
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
+          <div className="flex flex-wrap gap-2 justify-center mb-8" data-aos="fade-up" data-aos-delay="100">
             {tabs.map(tab => (
               <button
                 key={tab.id}
@@ -512,7 +517,17 @@ const About = () => {
 
           {/* Tab Content */}
           <div key={activeTab}>
-            {activeTab === 'values' && <ValuesTab />}
+            {activeTab === 'values' && (
+              <ValuesTab 
+                onCertificatesClick={() => {
+                  setActiveTab('certifications');
+                  setTimeout(() => {
+                    const el = document.getElementById('deep-dive-section');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 50);
+                }} 
+              />
+            )}
             {activeTab === 'certifications' && <CertificationsTab />}
             {activeTab === 'vision' && <VisionTab />}
           </div>

@@ -19,6 +19,7 @@ import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Contact from './pages/Contact';
 import Preloader from './components/Preloader';
+import PageTransition from './components/PageTransition';
 
 function App() {
   useEffect(() => {
@@ -40,17 +41,19 @@ function App() {
         
         {/* Main Content Area */}
         <div className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/founder" element={<Founder />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/product/:productName" element={<ProductDetail />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          <PageTransition>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/founder" element={<Founder />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/product/:productName" element={<ProductDetail />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </PageTransition>
         </div>
 
         <Footer />
