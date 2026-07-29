@@ -116,10 +116,10 @@ const Header = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
+      const isMobile = window.innerWidth < 768;
       
       setIsScrolled(scrollY > 10);
-      // 2.7 * vh transitions the navbar color just as the Goals section slides up to the top
-      setIsGoalsReached(scrollY > 2.65 * vh);
+      setIsGoalsReached(scrollY > (isMobile ? 0.95 * vh : 2.65 * vh));
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);

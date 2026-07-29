@@ -447,15 +447,15 @@ const About = () => {
   ];
 
   return (
-    <div className="w-full bg-[#000000]">
-      <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "About Us", path: null }]} />
+    <div className="w-full bg-[#000000] pt-[64px] md:pt-[76px]">
+      <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "About Us", path: null }]} isDarkTheme={true} />
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-b from-[#0d0d0d] via-[#120a0a] to-black">
         {/* Background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-red-900/20 blur-[120px] pointer-events-none" />
         
-        <div className="relative max-w-6xl mx-auto px-4 md:px-8 py-20 md:py-28 text-center">
+        <div className="relative max-w-6xl mx-auto px-4 md:px-8 pt-8 pb-16 md:py-28 text-center">
           <div data-aos="fade-down" className="inline-flex items-center gap-2 bg-red-950/40 border border-red-800/30 text-red-400 text-xs font-bold tracking-[0.3em] uppercase px-4 py-2 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
             Est. 1993 · Maharashtra, India

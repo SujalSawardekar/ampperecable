@@ -12,7 +12,7 @@ const taglines = [
   "Your trusted partner in advanced cable manufacturing."
 ];
 
-const HeroScroll3D = () => {
+const HeroScroll3D = ({ isMobile = false }) => {
   const canvasRef  = useRef(null);
   const wrapRef    = useRef(null);
   const images     = useRef([]);
@@ -109,6 +109,10 @@ const HeroScroll3D = () => {
   */
   useEffect(() => {
     const onScroll = () => {
+      if (isMobile) {
+        setProgress(0);
+        return;
+      }
       const el = wrapRef.current;
       if (!el) return;
       // parent scroll-spacer's top relative to page
@@ -126,6 +130,8 @@ const HeroScroll3D = () => {
 
   /* Render loop */
   useEffect(() => {
+    if (isMobile) return;
+    
     const canvas = canvasRef.current;
     const ctx    = canvas.getContext('2d');
     const dpr    = window.devicePixelRatio || 1;
@@ -203,10 +209,18 @@ const HeroScroll3D = () => {
         isLoaded ? 'scale-100 opacity-100 blur-0' : 'scale-[1.12] opacity-0 blur-[6px]'
       }`}
     >
-      <canvas
-        ref={canvasRef}
-        style={{ width: '100%', height: '100%', display: 'block' }}
-      />
+      {isMobile ? (
+        <img 
+          src="/mobile-hero.png" 
+          alt="Amppere Cable Background"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      ) : (
+        <canvas
+          ref={canvasRef}
+          style={{ width: '100%', height: '100%', display: 'block' }}
+        />
+      )}
 
       {/* Soft Black Vignette Background Overlay (easily visible on 1st frame, fades on scroll) */}
       <div 
@@ -238,15 +252,15 @@ const HeroScroll3D = () => {
       <div
         style={{
           position: 'absolute',
-          top: '20vh',
+          top: isMobile ? '22vh' : '20vh',
           left: '50%',
           transform: isLoaded 
-            ? (progress > 0.01 
+            ? (progress > 0.01 && !isMobile
                 ? 'translateX(-50%) translateY(-50px)' 
                 : 'translateX(-50%) translateY(0)') 
             : 'translateX(-50%) translateY(-20px)',
           zIndex: 30,
-          opacity: isLoaded ? Math.max(0, 1 - progress * 12) : 0,
+          opacity: isLoaded ? (isMobile ? 1 : Math.max(0, 1 - progress * 12)) : 0,
           transition: 'opacity 0.25s ease-out, transform 0.25s ease-out',
           pointerEvents: 'none',
           width: '100%',
@@ -254,7 +268,7 @@ const HeroScroll3D = () => {
         }}
         className="px-6 text-center select-none"
       >
-        <h1 className="text-[10vw] sm:text-[7vw] md:text-[5vw] font-black uppercase tracking-tight leading-[0.92] text-white m-0 font-outfit overflow-hidden">
+        <h1 className="text-[15.5vw] sm:text-[8vw] md:text-[5vw] font-black uppercase tracking-tight leading-[0.92] text-white m-0 font-outfit overflow-hidden">
           <span style={{
             display: 'block',
             opacity: isLoaded ? 1 : 0,
@@ -291,22 +305,22 @@ const HeroScroll3D = () => {
         style={{
           position: 'absolute',
           zIndex: 30,
-          opacity: isLoaded ? Math.max(0, 1 - Math.max(0, progress - 0.92) * 15) : 0,
-          left: progress > 0.01 ? (windowWidth >= 768 ? '4rem' : '2rem') : '50%',
-          bottom: progress > 0.01 ? '2rem' : '5.8rem',
+          opacity: isLoaded ? (isMobile ? 1 : Math.max(0, 1 - Math.max(0, progress - 0.92) * 15)) : 0,
+          left: isMobile ? '50%' : (progress > 0.01 ? (windowWidth >= 768 ? '4rem' : '2rem') : '50%'),
+          bottom: isMobile ? '2.5rem' : (progress > 0.01 ? '2rem' : '5.8rem'),
           transform: isLoaded 
-            ? (progress > 0.01 
-                ? 'translateX(0) translateY(0)' 
+            ? ((isMobile || progress > 0.01)
+                ? (isMobile ? 'translateX(-50%) translateY(0)' : 'translateX(0) translateY(0)') 
                 : 'translateX(-50%) translateY(0)') 
             : 'translateX(-50%) translateY(20px)',
           transition: 'left 1.2s cubic-bezier(0.25, 1, 0.2, 1), transform 1.2s cubic-bezier(0.25, 1, 0.2, 1), bottom 1.2s cubic-bezier(0.25, 1, 0.2, 1), opacity 0.4s ease-out, gap 1.2s cubic-bezier(0.25, 1, 0.2, 1)',
-          pointerEvents: isLoaded && progress < 0.95 ? 'auto' : 'none',
+          pointerEvents: isLoaded && (isMobile || progress < 0.95) ? 'auto' : 'none',
           display: 'flex',
           flexDirection: 'column',
-          gap: progress > 0.01 ? '0.6rem' : '1.5rem',
-          alignItems: progress > 0.01 ? 'flex-start' : 'center',
+          gap: isMobile ? '0.75rem' : (progress > 0.01 ? '0.6rem' : '1.5rem'),
+          alignItems: isMobile ? 'center' : (progress > 0.01 ? 'flex-start' : 'center'),
           width: '100%',
-          maxWidth: progress > 0.01 ? (windowWidth >= 768 ? '650px' : 'calc(100% - 4rem)') : '850px',
+          maxWidth: isMobile ? '95%' : (progress > 0.01 ? (windowWidth >= 768 ? '650px' : 'calc(100% - 4rem)') : '850px'),
         }}
         className="select-none"
       >
@@ -314,7 +328,8 @@ const HeroScroll3D = () => {
         <div 
           style={{ 
             position: 'relative', 
-            height: '2.2rem', 
+            height: isMobile ? 'auto' : '2.2rem', 
+            minHeight: isMobile ? '2.5rem' : 'auto',
             overflow: 'hidden', 
             width: '100%',
             transition: 'max-width 1s ease',
@@ -326,18 +341,19 @@ const HeroScroll3D = () => {
               <p 
                 key={idx}
                 style={{ 
-                  position: 'absolute', top: 0, left: 0, width: '100%',
-                  fontSize: progress > 0.01 ? '1.25rem' : '1.4rem', 
+                  position: isMobile && !isActive ? 'absolute' : (isActive && isMobile ? 'relative' : 'absolute'), 
+                  top: 0, left: 0, width: '100%',
+                  fontSize: isMobile ? '1.1rem' : (progress > 0.01 ? '1.25rem' : '1.4rem'), 
                   color: progress > 0.01 ? '#cbd5e1' : '#f3f4f6', 
                   margin: 0, fontWeight: 500,
                   opacity: isActive ? 1 : 0,
                   transform: isActive ? 'translateY(0)' : 'translateY(100%)',
                   transition: 'opacity 0.5s, transform 0.5s, font-size 1.2s cubic-bezier(0.25, 1, 0.2, 1), color 1.2s cubic-bezier(0.25, 1, 0.2, 1)',
                   pointerEvents: isActive ? 'auto' : 'none',
-                  textAlign: progress > 0.01 ? 'left' : 'center',
-                  whiteSpace: progress > 0.01 ? 'nowrap' : 'normal',
+                  textAlign: isMobile ? 'center' : (progress > 0.01 ? 'left' : 'center'),
+                  whiteSpace: progress > 0.01 && windowWidth >= 768 ? 'nowrap' : 'normal',
                 }}
-                className="font-inter"
+                className="font-inter leading-tight"
               >
                 {text}
               </p>
@@ -346,86 +362,79 @@ const HeroScroll3D = () => {
         </div>
 
         {/* Stats card (Seamless dimensions) */}
-        <div style={{
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'inline-flex', alignItems: 'center', gap: '1.75rem',
-          background: 'rgba(10, 5, 5, 0.65)',
-          backdropFilter: 'blur(20px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-          border: '1px solid rgba(255, 255, 255, 0.18)',
-          borderRadius: '20px', padding: '1rem 2.2rem',
-          color: 'white',
-          boxShadow: '0 20px 50px 0 rgba(0, 0, 0, 0.65), 0 0 30px rgba(198, 40, 40, 0.15)',
-        }}>
+        <div 
+          className="flex flex-row flex-nowrap justify-center items-center gap-2 md:gap-7 relative bg-[rgba(10,5,5,0.65)] backdrop-blur-[20px] saturate-[180%] border border-white/20 rounded-2xl md:rounded-[20px] p-4 md:px-9 md:py-4 text-white shadow-[0_20px_50px_0_rgba(0,0,0,0.65),0_0_30px_rgba(198,40,40,0.15)] w-full"
+        >
 
           {/* Stat 1 */}
-          <div style={{ display: 'flex', gap: '0.7rem', alignItems: 'center' }} className="group">
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, lineHeight: 1 }} className="font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105">
+          <div className="flex flex-col md:flex-row gap-1 md:gap-2.5 items-center justify-center group">
+            <span className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
               {Math.round(countProgress * 30)}+
             </span>
-            <span style={{ fontSize: '0.8rem', color: '#cbd5e1', lineHeight: 1.3, textAlign: 'left', fontWeight: 500 }} className="font-inter">Years Of<br/>Experience</span>
+            <span className="text-[0.55rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Years Of<br className="hidden md:block"/>Experience</span>
           </div>
           
-          <div style={{ width: '1px', height: '35px', background: 'rgba(255,255,255,0.15)' }} />
+          <div className="w-px h-[35px] sm:h-[45px] bg-white/15" />
           
           {/* Stat 2 */}
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }} className="group">
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, lineHeight: 1 }} className="font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105">
+          <div className="flex flex-col md:flex-row gap-1 md:gap-3 items-center justify-center group">
+            <span className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
               {Math.round(countProgress * 100)}+
             </span>
-            <span style={{ fontSize: '0.8rem', color: '#cbd5e1', lineHeight: 1.3, textAlign: 'left', fontWeight: 500 }} className="font-inter">Number Of<br/>Clients</span>
+            <span className="text-[0.55rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Number Of<br className="hidden md:block"/>Clients</span>
           </div>
           
-          <div style={{ width: '1px', height: '35px', background: 'rgba(255,255,255,0.15)' }} />
+          <div className="w-px h-[35px] sm:h-[45px] bg-white/15" />
           
           {/* Stat 3 */}
-          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }} className="group">
-            <span style={{ fontSize: '2.5rem', fontWeight: 900, lineHeight: 1 }} className="font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105">
+          <div className="flex flex-col md:flex-row gap-1 md:gap-3 items-center justify-center group">
+            <span className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
               {Math.round(countProgress * 5000)}K+
             </span>
-            <span style={{ fontSize: '0.8rem', color: '#cbd5e1', lineHeight: 1.3, textAlign: 'left', fontWeight: 500 }} className="font-inter">Total Cable Length<br/>Manufactured (Mtr)</span>
+            <span className="text-[0.55rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Total Length<br className="hidden md:block"/>(Mtr)</span>
           </div>
         </div>
       </div>
 
       {/* Scroll hint (Adjusted proper at bottom-center on 1st frame, fades out on scroll) */}
-      <div style={{
-        position: 'absolute',
-        bottom: '2.2rem',
-        left: '50%',
-        transform: isLoaded ? `translate(-50%, ${progress * 40}px)` : 'translate(-50%, 20px)',
-        opacity: isLoaded && progress < 0.08 ? Math.max(0, 1 - progress * 12) : 0,
-        transition: 'opacity 0.4s ease-out, transform 0.4s ease-out',
-        pointerEvents: isLoaded && progress < 0.08 ? 'auto' : 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        fontSize: '0.68rem',
-        fontFamily: 'monospace',
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        color: '#e5e7eb',
-        background: 'rgba(0,0,0,0.55)',
-        backdropFilter: 'blur(12px)',
-        border: '1px solid rgba(255,255,255,0.18)',
-        padding: '0.45rem 1rem',
-        borderRadius: '999px',
-        zIndex: 35,
-      }}>
-        <span style={{
-          display: 'inline-block', width: '0.85rem', height: '1.2rem',
-          border: '2px solid rgba(248,113,113,0.6)', borderRadius: '999px',
-          position: 'relative',
+      {!isMobile && (
+        <div style={{
+          position: 'absolute',
+          bottom: '2.2rem',
+          left: '50%',
+          transform: isLoaded ? `translate(-50%, ${progress * 40}px)` : 'translate(-50%, 20px)',
+          opacity: isLoaded && progress < 0.08 ? Math.max(0, 1 - progress * 12) : 0,
+          transition: 'opacity 0.4s ease-out, transform 0.4s ease-out',
+          pointerEvents: isLoaded && progress < 0.08 ? 'auto' : 'none',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          fontSize: '0.68rem',
+          fontFamily: 'monospace',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: '#e5e7eb',
+          background: 'rgba(0,0,0,0.55)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255,255,255,0.18)',
+          padding: '0.45rem 1rem',
+          borderRadius: '999px',
+          zIndex: 35,
         }}>
           <span style={{
-            position: 'absolute', top: '3px', left: '50%', transform: 'translateX(-50%)',
-            width: '3px', height: '5px', background: '#fbbf24', borderRadius: '999px',
-            animation: 'bounce 1s infinite',
-          }} />
-        </span>
-        Scroll to explore
-      </div>
+            display: 'inline-block', width: '0.85rem', height: '1.2rem',
+            border: '2px solid rgba(248,113,113,0.6)', borderRadius: '999px',
+            position: 'relative',
+          }}>
+            <span style={{
+              position: 'absolute', top: '3px', left: '50%', transform: 'translateX(-50%)',
+              width: '3px', height: '5px', background: '#fbbf24', borderRadius: '999px',
+              animation: 'bounce 1s infinite',
+            }} />
+          </span>
+          Scroll to explore
+        </div>
+      )}
     </div>
   );
 };

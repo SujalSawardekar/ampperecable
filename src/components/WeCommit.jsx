@@ -30,7 +30,7 @@ const WeCommit = () => {
     <section className="text-white relative flex flex-col items-center justify-center pt-8 md:pt-16 overflow-hidden">
       <div className="relative z-20 flex flex-col md:flex-row items-center space-y-8 md:space-x-8 md:space-y-0 w-full max-w-screen-lg p-0">
         {/* Left: Hand holding heart illustration */}
-        <div className="relative w-full md:w-1/2 flex-shrink-0 flex items-center justify-center">
+        <div className="relative w-full md:w-1/2 flex-shrink-0 flex items-center justify-center pt-10 md:pt-0">
           {/* Animated rings behind the hand */}
           <div className="absolute inset-0 m-auto w-64 h-64 border border-black/10 rounded-full animate-[spin_10s_linear_infinite]" />
           <div className="absolute inset-0 m-auto w-48 h-48 border border-red-500/20 rounded-full animate-[spin_7s_linear_infinite_reverse]" />
@@ -38,19 +38,19 @@ const WeCommit = () => {
           <img
             src={O.commit}
             alt="Hand Holding Heart"
-            className="h-auto w-3/5 md:w-3/5 relative z-30 -mb-12 md:-mb-24 p-0 drop-shadow-[0_25px_35px_rgba(0,0,0,0.7)] transition-all duration-300 animate-float"
+            className="h-auto w-3/5 md:w-3/5 relative z-30 mb-8 md:-mb-24 p-0 drop-shadow-[0_25px_35px_rgba(0,0,0,0.7)] transition-all duration-300 animate-float"
             data-aos="fade-down"
             data-aos-duration="400"
           />
         </div>
 
         {/* Right: Commit Text */}
-        <div className="relative w-full md:w-1/2 text-center md:text-left px-6 md:px-0 pb-8 md:pb-12" data-aos="fade-up" data-aos-duration="400">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-outfit tracking-tight text-left mb-6 text-black">
+        <div className="relative w-full md:w-1/2 text-center md:text-left px-6 md:px-0 pb-12 md:pb-12" data-aos="fade-up" data-aos-duration="400">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-outfit tracking-tight text-center md:text-left mb-6 text-black">
             <span className="text-black mr-3">WE</span>
             <span className="text-red-600">COMMIT</span>
           </h2>
-          <h3 className="text-base md:text-lg text-black font-inter leading-relaxed max-w-lg">
+          <h3 className="text-base md:text-lg text-black font-inter leading-relaxed max-w-lg mx-auto md:mx-0">
             At Amppere Cable, we commit to providing top-quality, reliable products backed by over 30 years of expertise and international certifications. Our state-of-the-art facility and skilled team ensure excellence in every cable we manufacture.
           </h3>
         </div>
