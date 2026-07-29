@@ -376,6 +376,8 @@ const Header = () => {
       {/* Mobile Drawer */}
       <aside
         className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] z-[70] md:hidden shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
+          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        } ${
           isDarkTheme 
             ? 'bg-[#290508] text-white border-l border-white/10' 
             : 'bg-white text-neutral-800'
