@@ -317,7 +317,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
           zIndex: 30,
           opacity: isLoaded ? Math.max(0, 1 - Math.max(0, progress - 0.92) * 15) : 0,
           left: '50%',
-          bottom: isMobile ? '3.5rem' : '4rem',
+          bottom: isMobile ? '1.75rem' : '4rem',
           transform: isLoaded 
             ? 'translateX(-50%) translateY(0)'
             : 'translateX(-50%) translateY(20px)',
@@ -325,7 +325,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
           pointerEvents: isLoaded && (isMobile || progress < 0.95) ? 'auto' : 'none',
           display: 'flex',
           flexDirection: 'column',
-          gap: isMobile ? '0.75rem' : '1.25rem',
+          gap: isMobile ? '0.45rem' : '1.25rem',
           alignItems: 'center',
           width: '100%',
           maxWidth: isMobile ? '92%' : '850px',
@@ -351,7 +351,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
                 style={{ 
                   position: isMobile && !isActive ? 'absolute' : (isActive && isMobile ? 'relative' : 'absolute'), 
                   top: 0, left: 0, width: '100%',
-                  fontSize: isMobile ? '1rem' : '1.35rem', 
+                  fontSize: isMobile ? '0.85rem' : '1.35rem', 
                   color: '#f3f4f6', 
                   margin: 0, fontWeight: 500,
                   opacity: isActive ? 1 : 0,
@@ -371,35 +371,35 @@ const HeroScroll3D = ({ isMobile = false }) => {
 
         {/* Stats card (Seamless dimensions) */}
         <div 
-          className="flex flex-row flex-nowrap justify-center items-center gap-2 md:gap-7 relative bg-[rgba(10,5,5,0.65)] backdrop-blur-[20px] saturate-[180%] border border-white/20 rounded-2xl md:rounded-[20px] p-4 md:px-9 md:py-4 text-white shadow-[0_20px_50px_0_rgba(0,0,0,0.65),0_0_30px_rgba(198,40,40,0.15)] w-full"
+          className="flex flex-row flex-nowrap justify-center items-center gap-1.5 md:gap-7 relative bg-[rgba(10,5,5,0.65)] backdrop-blur-[20px] saturate-[180%] border border-white/20 rounded-2xl md:rounded-[20px] p-2.5 md:px-9 md:py-4 text-white shadow-[0_20px_50px_0_rgba(0,0,0,0.65),0_0_30px_rgba(198,40,40,0.15)] w-full"
         >
 
           {/* Stat 1 */}
-          <div className="flex flex-col md:flex-row gap-1 md:gap-2.5 items-center justify-center group">
-            <span className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
+          <div className="flex flex-col md:flex-row gap-0.5 md:gap-2.5 items-center justify-center group">
+            <span className="text-[1.25rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
               {Math.round(countProgress * 30)}+
             </span>
-            <span className="text-[0.55rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Years Of<br className="hidden md:block"/>Experience</span>
+            <span className="text-[0.48rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Years Of<br className="hidden md:block"/>Experience</span>
           </div>
           
-          <div className="w-px h-[35px] sm:h-[45px] bg-white/15" />
+          <div className="w-px h-[28px] sm:h-[45px] bg-white/15" />
           
           {/* Stat 2 */}
-          <div className="flex flex-col md:flex-row gap-1 md:gap-3 items-center justify-center group">
-            <span className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
+          <div className="flex flex-col md:flex-row gap-0.5 md:gap-3 items-center justify-center group">
+            <span className="text-[1.25rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
               {Math.round(countProgress * 100)}+
             </span>
-            <span className="text-[0.55rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Number Of<br className="hidden md:block"/>Clients</span>
+            <span className="text-[0.48rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Number Of<br className="hidden md:block"/>Clients</span>
           </div>
           
-          <div className="w-px h-[35px] sm:h-[45px] bg-white/15" />
+          <div className="w-px h-[28px] sm:h-[45px] bg-white/15" />
           
           {/* Stat 3 */}
-          <div className="flex flex-col md:flex-row gap-1 md:gap-3 items-center justify-center group">
-            <span className="text-[1.5rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
+          <div className="flex flex-col md:flex-row gap-0.5 md:gap-3 items-center justify-center group">
+            <span className="text-[1.25rem] sm:text-[1.75rem] md:text-[2.5rem] font-black leading-none font-outfit transition-all duration-300 group-hover:text-red-500 group-hover:scale-105 whitespace-nowrap">
               {Math.round(countProgress * 5000)}K+
             </span>
-            <span className="text-[0.55rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Total Length<br className="hidden md:block"/>(Mtr)</span>
+            <span className="text-[0.48rem] sm:text-[0.65rem] md:text-[0.8rem] text-slate-300 leading-tight text-center md:text-left font-medium font-inter mt-0.5 md:mt-0">Total Length<br className="hidden md:block"/>(Mtr)</span>
           </div>
         </div>
       </div>

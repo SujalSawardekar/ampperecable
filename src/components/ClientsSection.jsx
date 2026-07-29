@@ -131,7 +131,7 @@ const ClientsSection = React.memo(() => {
                   className="flex animate-marquee whitespace-nowrap items-center gap-16 md:gap-24"
                   style={{
                     opacity: 0,
-                    animation: 'marquee 25s linear infinite, logoFadeIn 0.6s 0.35s forwards',
+                    animation: 'marquee var(--marquee-speed, 25s) linear infinite, logoFadeIn 0.6s 0.35s forwards',
                   }}
                 >
                   {clientLogos.concat(clientLogos).map((logo, idx) => (
@@ -152,7 +152,7 @@ const ClientsSection = React.memo(() => {
                   style={{
                     animationDirection: 'reverse',
                     opacity: 0,
-                    animation: 'marquee 25s linear infinite reverse, logoFadeIn 0.6s 0.5s forwards',
+                    animation: 'marquee var(--marquee-speed, 25s) linear infinite reverse, logoFadeIn 0.6s 0.5s forwards',
                   }}
                 >
                   {clientLogos.slice().reverse().concat(clientLogos.slice().reverse()).map((logo, idx) => (
@@ -172,6 +172,14 @@ const ClientsSection = React.memo(() => {
         </div>
       </div>
       <style>{`
+        :root {
+          --marquee-speed: 25s;
+        }
+        @media (max-width: 767px) {
+          :root {
+            --marquee-speed: 12s;
+          }
+        }
         .mask-edges {
           mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
           -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
