@@ -96,43 +96,46 @@ const HeroScroll3D = ({ isMobile = false }) => {
 
   /* Preload */
   useEffect(() => {
+    if (isMobile) return;
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image();
       img.src = `/frames/ezgif-frame-${pad(i)}.webp`;
       images.current[i - 1] = img;
     }
-  }, []);
+  }, [isMobile]);
 
   /* Scroll → frame mapping
      The sticky wrapper is inside a scroll-spacer in Home.jsx.
      We track scrollY relative to the spacer's top edge.
   */
   useEffect(() => {
+    if (isMobile) {
+      setProgress(0);
+      return;
+    }
     const onScroll = () => {
-      if (isMobile) {
-        setProgress(0);
-        return;
-      }
       const el = wrapRef.current;
       if (!el) return;
       // parent scroll-spacer's top relative to page
       const spacerTop = el.parentElement?.offsetTop ?? 0;
       const scrolled  = window.scrollY - spacerTop;
+      // The animation always plays over the dedicated FRAME_SCROLL_VH height
       const maxScroll = FRAME_SCROLL_VH * window.innerHeight;
-      const p = Math.max(0, Math.min(1, scrolled / maxScroll));
+      const p = maxScroll <= 0 ? 0 : Math.max(0, Math.min(1, scrolled / maxScroll));
       setProgress(p);
       targetF.current = p * (TOTAL_FRAMES - 1);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isMobile]);
 
   /* Render loop */
   useEffect(() => {
     if (isMobile) return;
-    
     const canvas = canvasRef.current;
+    if (!canvas) return;
+    
     const ctx    = canvas.getContext('2d');
     const dpr    = window.devicePixelRatio || 1;
 
@@ -183,7 +186,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
       cancelAnimationFrame(rafId.current);
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     /*
@@ -197,7 +200,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
     <div
       ref={wrapRef}
       style={{
-        position: 'sticky',
+        position: isMobile ? 'relative' : 'sticky',
         top: 0,
         width: '100%',
         height: '100vh',
@@ -210,10 +213,17 @@ const HeroScroll3D = ({ isMobile = false }) => {
       }`}
     >
       {isMobile ? (
-        <img 
-          src="/mobile-hero.png" 
-          alt="Amppere Cable Background"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        <img
+          src="/mobile-hero.png"
+          alt="Amppere Cable"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 10,
+          }}
         />
       ) : (
         <canvas
@@ -260,7 +270,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
                 : 'translateX(-50%) translateY(0)') 
             : 'translateX(-50%) translateY(-20px)',
           zIndex: 30,
-          opacity: isLoaded ? (isMobile ? 1 : Math.max(0, 1 - progress * 12)) : 0,
+          opacity: isLoaded ? Math.max(0, 1 - progress * 12) : 0,
           transition: 'opacity 0.25s ease-out, transform 0.25s ease-out',
           pointerEvents: 'none',
           width: '100%',
@@ -305,26 +315,24 @@ const HeroScroll3D = ({ isMobile = false }) => {
         style={{
           position: 'absolute',
           zIndex: 30,
-          opacity: isLoaded ? (isMobile ? 1 : Math.max(0, 1 - Math.max(0, progress - 0.92) * 15)) : 0,
-          left: isMobile ? '50%' : (progress > 0.01 ? (windowWidth >= 768 ? '4rem' : '2rem') : '50%'),
-          bottom: isMobile ? '7.5rem' : (progress > 0.01 ? '2rem' : '5.8rem'),
+          opacity: isLoaded ? Math.max(0, 1 - Math.max(0, progress - 0.92) * 15) : 0,
+          left: '50%',
+          bottom: isMobile ? '3.5rem' : '4rem',
           transform: isLoaded 
-            ? ((isMobile || progress > 0.01)
-                ? (isMobile ? 'translateX(-50%) translateY(0)' : 'translateX(0) translateY(0)') 
-                : 'translateX(-50%) translateY(0)') 
+            ? 'translateX(-50%) translateY(0)'
             : 'translateX(-50%) translateY(20px)',
-          transition: 'left 1.2s cubic-bezier(0.25, 1, 0.2, 1), transform 1.2s cubic-bezier(0.25, 1, 0.2, 1), bottom 1.2s cubic-bezier(0.25, 1, 0.2, 1), opacity 0.4s ease-out, gap 1.2s cubic-bezier(0.25, 1, 0.2, 1)',
+          transition: 'bottom 0.5s ease, opacity 0.4s ease-out',
           pointerEvents: isLoaded && (isMobile || progress < 0.95) ? 'auto' : 'none',
           display: 'flex',
           flexDirection: 'column',
-          gap: isMobile ? '0.75rem' : (progress > 0.01 ? '0.6rem' : '1.5rem'),
-          alignItems: isMobile ? 'center' : (progress > 0.01 ? 'flex-start' : 'center'),
+          gap: isMobile ? '0.75rem' : '1.25rem',
+          alignItems: 'center',
           width: '100%',
-          maxWidth: isMobile ? '95%' : (progress > 0.01 ? (windowWidth >= 768 ? '650px' : 'calc(100% - 4rem)') : '850px'),
+          maxWidth: isMobile ? '92%' : '850px',
         }}
         className="select-none"
       >
-        {/* Tagline Over Box (Visually transitions size & alignment) */}
+        {/* Tagline Over Box */}
         <div 
           style={{ 
             position: 'relative', 
@@ -343,15 +351,15 @@ const HeroScroll3D = ({ isMobile = false }) => {
                 style={{ 
                   position: isMobile && !isActive ? 'absolute' : (isActive && isMobile ? 'relative' : 'absolute'), 
                   top: 0, left: 0, width: '100%',
-                  fontSize: isMobile ? '1.1rem' : (progress > 0.01 ? '1.25rem' : '1.4rem'), 
-                  color: progress > 0.01 ? '#cbd5e1' : '#f3f4f6', 
+                  fontSize: isMobile ? '1rem' : '1.35rem', 
+                  color: '#f3f4f6', 
                   margin: 0, fontWeight: 500,
                   opacity: isActive ? 1 : 0,
                   transform: isActive ? 'translateY(0)' : 'translateY(100%)',
-                  transition: 'opacity 0.5s, transform 0.5s, font-size 1.2s cubic-bezier(0.25, 1, 0.2, 1), color 1.2s cubic-bezier(0.25, 1, 0.2, 1)',
+                  transition: 'opacity 0.5s, transform 0.5s, font-size 0.5s, color 0.5s',
                   pointerEvents: isActive ? 'auto' : 'none',
-                  textAlign: isMobile ? 'center' : (progress > 0.01 ? 'left' : 'center'),
-                  whiteSpace: progress > 0.01 && windowWidth >= 768 ? 'nowrap' : 'normal',
+                  textAlign: 'center',
+                  whiteSpace: 'normal',
                 }}
                 className="font-inter leading-tight"
               >

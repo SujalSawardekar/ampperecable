@@ -49,6 +49,15 @@ const SliderNavButton = ({ dir, onClick, disabled }) => {
 // Individual Product Card Slide Component (Bg)
 export const ProductCard = ({ item }) => {
   const [hovered, setHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const description = item.description || (item.data && item.data[0] ? item.data[0].description : "");
 
   return (
@@ -79,7 +88,7 @@ export const ProductCard = ({ item }) => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center bottom",
+            objectPosition: isMobile ? "center center" : "center bottom",
             display: "block",
             transformOrigin: "center bottom",
             transform: hovered ? "scale(1.06)" : "scale(1)",

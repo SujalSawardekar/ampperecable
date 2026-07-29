@@ -29,18 +29,23 @@ const productsData = [
   }
 ];
 
-// 950px scroll space per product item for smooth, unhurried ZeroCircle scrolling
-const PX_PER_PROD = 950;
-const TOTAL_SCROLL = PX_PER_PROD * productsData.length;
-
-export default function ProductShowcase() {
+const ProductShowcase = () => {
   const sectionRef = useRef(null);
+  const rafRef = useRef(null);
+
+  // Responsive scroll distances to prevent "endless scrolling" on mobile
+  const isMobileSize = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const displayedProducts = productsData;
+
+  // Make it extremely fast on mobile so they instantly see the next item
+  const PX_PER_PROD = isMobileSize ? 250 : 700;
+  const TOTAL_SCROLL = PX_PER_PROD * displayedProducts.length;
+
   const [activeIdx, setActiveIdx] = useState(0);
   const [smoothProg, setSmoothProg] = useState(0);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   const targetProgRef = useRef(0);
   const currentProgRef = useRef(0);
-  const rafRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -59,35 +64,41 @@ export default function ProductShowcase() {
       if (scrolled <= 0) {
         targetProgRef.current = 0;
       } else {
-        targetProgRef.current = Math.min(productsData.length - 1, scrolled / PX_PER_PROD);
+        targetProgRef.current = Math.min(displayedProducts.length - 1, scrolled / PX_PER_PROD);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [PX_PER_PROD, displayedProducts.length]);
 
-  // 2. Ultra-smooth continuous lerp loop (damping 0.07) for silky physics
+  // 2. Ultra-smooth continuous animation loop with React re-render guard
   useEffect(() => {
+    let lastP = -1;
+    
     const loop = () => {
       const diff = targetProgRef.current - currentProgRef.current;
-      if (Math.abs(diff) > 0.0002) {
-        currentProgRef.current += diff * 0.07;
+      if (Math.abs(diff) > 0.0001) {
+        currentProgRef.current += diff * 0.08;
       } else {
         currentProgRef.current = targetProgRef.current;
       }
       
       const p = currentProgRef.current;
-      setSmoothProg(p);
-      setActiveIdx(Math.min(productsData.length - 1, Math.max(0, Math.round(p))));
+      
+      if (Math.abs(p - lastP) > 0.001) {
+        setSmoothProg(p);
+        setActiveIdx(Math.min(displayedProducts.length - 1, Math.max(0, Math.round(p))));
+        lastP = p;
+      }
       
       rafRef.current = requestAnimationFrame(loop);
     };
 
     rafRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafRef.current);
-  }, []);
+  }, [displayedProducts.length]);
 
   return (
     <section className="bg-white text-[#111111] font-inter w-full relative">
@@ -152,7 +163,7 @@ export default function ProductShowcase() {
               
               {/* LEFT COLUMN (3 cols): Premium Outfit ExtraBold Right-Aligned Titles */}
               <div className="lg:col-span-3 relative h-[60px] sm:h-[80px] lg:h-full flex items-center justify-center lg:justify-end order-1 lg:order-1 z-20 pointer-events-none lg:pr-8 xl:pr-12">
-                {productsData.map((prod, i) => {
+                {displayedProducts.map((prod, i) => {
                   const offset = i - smoothProg;
                   const dist = Math.abs(offset);
                   
@@ -205,7 +216,7 @@ export default function ProductShowcase() {
                 <div className="absolute top-[-20%] left-[-20%] w-[500px] h-[500px] bg-[#e3d7ff]/40 rounded-full blur-[120px] pointer-events-none" />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[450px] h-[450px] bg-[#ffcce6]/35 rounded-full blur-[100px] pointer-events-none" />
                 <div className="absolute top-[40%] right-[30%] w-[300px] h-[300px] bg-[#dcf2f1]/40 rounded-full blur-[90px] pointer-events-none" />
-                {productsData.map((prod, i) => {
+                {displayedProducts.map((prod, i) => {
                   const offset = i - smoothProg;
                   const absOff = Math.abs(offset);
 
@@ -257,8 +268,8 @@ export default function ProductShowcase() {
               </div>
 
               {/* RIGHT COLUMN (3 cols): Left-Aligned Clean Descriptive Paragraphs */}
-              <div className="lg:col-span-3 relative h-[80px] sm:h-[100px] lg:h-full flex items-center justify-center lg:justify-start order-3 lg:order-3 z-20 pointer-events-none lg:pl-8 xl:pl-12">
-                {productsData.map((prod, i) => {
+              <div className="lg:col-span-3 relative h-[80px] sm:h-[100px] lg:h-full flex items-center justify-center lg:justify-start order-3 lg:order-3 z-20 pointer-events-none lg:pl-8 xl:pr-12">
+                {displayedProducts.map((prod, i) => {
                   const offset = i - smoothProg;
                   const dist = Math.abs(offset);
                   
@@ -305,27 +316,16 @@ export default function ProductShowcase() {
           ) : (
             /* MOBILE / TABLET VIEW: Vertical Scroll-Jacking Layout */
             <div className="w-full h-[550px] sm:h-[650px] relative flex items-center justify-center pt-16">
-              {productsData.map((prod, i) => {
+              {displayedProducts.map((prod, i) => {
                 const offset = i - smoothProg;
                 const dist = Math.abs(offset);
                 
-                const plateau = 0.28;
-                const transSpan = 0.25;
-                let opacity = 0;
-                let translateY = 0;
-                let scale = 1;
-
-                if (dist <= plateau) {
-                  opacity = 1.0;
-                  translateY = 0;
-                } else if (dist < plateau + transSpan) {
-                  const t = (dist - plateau) / transSpan;
-                  opacity = 1 - t;
-                  translateY = Math.sign(offset) * t * 40;
-                  scale = 1 - t * 0.05;
-                } else {
-                  opacity = 0;
-                }
+                // Horizontal movement based on offset
+                const translateX = offset * windowWidth * 0.85; // 85% of width
+                
+                // Fade out off-center items
+                const opacity = Math.max(0, 1 - dist * 1.8);
+                const scale = Math.max(0.8, 1 - dist * 0.15);
 
                 if (opacity <= 0.01) return null;
 
@@ -340,13 +340,13 @@ export default function ProductShowcase() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       opacity: opacity,
-                      transform: `translateY(${translateY}px) scale(${scale})`,
+                      transform: `translateX(${translateX}px) scale(${scale})`,
                       pointerEvents: dist < 0.35 ? 'auto' : 'none',
                     }}
                     className="px-6 text-center"
                   >
-                    <Link to={prod.link} className="inline-block group mb-6 hover:opacity-80 transition-opacity">
-                      <h3 className="text-3xl sm:text-4xl font-extrabold font-outfit text-[#111111] group-hover:text-[#C62828] transition-colors m-0 leading-tight">
+                    <Link to={prod.link} className="inline-block group mb-6 hover:opacity-80 transition-opacity max-w-[280px] mx-auto">
+                      <h3 className="text-3xl sm:text-4xl font-extrabold font-outfit text-[#111111] group-hover:text-[#C62828] transition-colors m-0 leading-tight max-w-[280px] mx-auto">
                         {prod.title}
                       </h3>
                     </Link>
@@ -375,5 +375,6 @@ export default function ProductShowcase() {
 
     </section>
   );
-}
+};
 
+export default ProductShowcase;

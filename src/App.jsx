@@ -37,7 +37,7 @@ function App() {
     <Router>
       <Preloader />
       <CustomCursor />
-      <div className="flex flex-col min-h-screen bg-white overflow-x-hidden w-full">
+      <div className="flex flex-col min-h-screen bg-white" style={{ overflowX: 'clip' }}>
         <Header />
         
         {/* Main Content Area */}

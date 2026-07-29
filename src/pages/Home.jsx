@@ -9,8 +9,8 @@ import Testimonials from '../components/Testimonials';
 import ClientsSection from '../components/ClientsSection';
 import SocialShowcase from '../components/SocialShowcase';
 
-const OVERLAP_VH   = 1.0;
-const PULL_UP_VH   = OVERLAP_VH;
+const OVERLAP_VH   = 2.0;
+const PULL_UP_VH   = 1.0;
 
 const Home = () => {
   useSEO(
@@ -26,8 +26,8 @@ const Home = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const spacerVh = isMobile ? 1.0 : (FRAME_SCROLL_VH + OVERLAP_VH + 1.0);
-  const pullUpVh = isMobile ? 0 : PULL_UP_VH;
+  const spacerVh = isMobile ? 1.0 : (FRAME_SCROLL_VH + OVERLAP_VH);
+  const pullUpVh = isMobile ? 0.0 : PULL_UP_VH;
 
   return (
     <main style={{ background: '#390609' }}>

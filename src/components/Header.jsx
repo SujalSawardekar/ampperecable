@@ -97,15 +97,18 @@ const Header = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isGoalsReached, setIsGoalsReached] = useState(false);
+  // True when user has scrolled into the dark-bg sections (AboutShowcase → Testimonials → SocialShowcase)
+  const [isDarkSectionReached, setIsDarkSectionReached] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const location = useLocation();
 
   const isHomePage = location.pathname === '/';
-  
+
   // Routes with dark background theme requiring dark navigation style
   const darkRoutes = ['/about', '/founder', '/blog', '/contact'];
   const isDarkPage = darkRoutes.some(route => location.pathname.startsWith(route));
-  const isDarkTheme = isHomePage ? (!isGoalsReached) : isDarkPage;
+  // Homepage nav arc: dark hero → light (Goals/Products/Clients) → dark (About/Testimonials/Social)
+  const isDarkTheme = isHomePage ? (!isGoalsReached || isDarkSectionReached) : isDarkPage;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 1100);
@@ -117,11 +120,31 @@ const Header = () => {
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
       const isMobile = window.innerWidth < 768;
-      
+
       setIsScrolled(scrollY > 10);
-      setIsGoalsReached(scrollY > (isMobile ? 0.95 * vh : 2.65 * vh));
+
+      // ── Goals detection: switch from dark hero → light nav ───────────────
+      const goalsEl = document.querySelector('[data-section="goals"]');
+      if (goalsEl) {
+        const goalsTop = goalsEl.getBoundingClientRect().top;
+        setIsGoalsReached(goalsTop <= 80);
+      } else {
+        setIsGoalsReached(scrollY > (isMobile ? 0.5 * vh : 1.2 * vh));
+      }
+
+      // ── Dark-section detection: switch light nav → dark nav again ────────
+      // Triggers when the first dark-background section (AboutShowcase) enters the viewport.
+      // We check when the wire-cable image area (bg-[#f4f4f4]) has scrolled mostly past,
+      // i.e. when the black portion of AboutShowcase is near the top.
+      const darkStartEl = document.querySelector('[data-section="dark-content"]');
+      if (darkStartEl) {
+        const darkTop = darkStartEl.getBoundingClientRect().top;
+        // Switch back to dark when the dark section is within 120px of the top of the viewport
+        setIsDarkSectionReached(darkTop <= 120);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -176,9 +199,11 @@ const Header = () => {
         } ${
           isHomePage
             ? isScrolled
-              ? isGoalsReached
-                ? 'top-0 w-full max-w-full rounded-none bg-white/95 backdrop-blur-lg border-b border-neutral-200/50 shadow-sm py-3 px-6 md:px-12 text-neutral-800'
-                : 'top-0 w-full max-w-full rounded-none bg-[#290508]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl py-2.5 px-6 md:px-12 text-white'
+              ? (isGoalsReached && !isDarkSectionReached)
+                ? 'top-0 w-full max-w-full rounded-none bg-white/95 backdrop-blur-lg shadow-sm py-3 px-6 md:px-12 text-neutral-800'
+                : isDarkSectionReached
+                  ? 'top-0 w-full max-w-full rounded-none bg-black/80 backdrop-blur-xl shadow-2xl py-2.5 px-6 md:px-12 text-white'
+                  : 'top-0 w-full max-w-full rounded-none bg-[#290508]/90 backdrop-blur-xl shadow-2xl py-2.5 px-6 md:px-12 text-white'
               : 'top-3 sm:top-5 w-[92%] max-w-5xl rounded-full bg-white/10 border border-white/25 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.45)] py-2 px-5 sm:px-8 text-white'
             : isDarkTheme
               ? 'top-0 w-full max-w-full rounded-none bg-[#120204]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3 px-6 md:px-12 text-white'
@@ -376,7 +401,7 @@ const Header = () => {
       {/* Mobile Drawer */}
       <aside
         className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] z-[70] md:hidden shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          mobileMenuOpen ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-full opacity-0 pointer-events-none invisible'
         } ${
           isDarkTheme 
             ? 'bg-[#290508] text-white border-l border-white/10' 

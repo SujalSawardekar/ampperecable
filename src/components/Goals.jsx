@@ -36,17 +36,24 @@ const goalsData = [
 ];
 
 // 950px scroll space per slide gives a relaxed, comfortable scroll duration
-const PX_PER_GOAL = 950;
-const TOTAL_SCROLL = PX_PER_GOAL * goalsData.length;
-
-export default function Goals() {
+const Goals = () => {
   const sectionRef = useRef(null);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [smoothProg, setSmoothProg] = useState(0);
+  const rafRef = useRef(null);
+  
+  // Responsive scroll distances to prevent "endless scrolling" on mobile
+  const isMobileSize = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const displayedGoals = goalsData;
+
+  // Make it extremely fast on mobile so they instantly see the next item
+  const PX_PER_GOAL = isMobileSize ? 250 : 550;
+  const TOTAL_SCROLL = PX_PER_GOAL * displayedGoals.length;
+
+  // React state for scroll progress
   const targetProgRef = useRef(0);
   const currentProgRef = useRef(0);
-  const rafRef = useRef(null);
-
+  const [smoothProg, setSmoothProg] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(0);
+  
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
   useEffect(() => {
@@ -66,35 +73,43 @@ export default function Goals() {
       if (scrolled <= 0) {
         targetProgRef.current = 0;
       } else {
-        targetProgRef.current = Math.min(goalsData.length - 1, scrolled / PX_PER_GOAL);
+        targetProgRef.current = Math.min(displayedGoals.length - 1, scrolled / PX_PER_GOAL);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [PX_PER_GOAL, displayedGoals.length]);
 
-  // 2. Ultra-smooth animation loop with gentler damping (0.07)
+  // 2. Ultra-smooth continuous animation loop with React re-render guard
   useEffect(() => {
+    let lastP = -1;
+    
     const loop = () => {
       const diff = targetProgRef.current - currentProgRef.current;
-      if (Math.abs(diff) > 0.0002) {
-        currentProgRef.current += diff * 0.07;
+      if (Math.abs(diff) > 0.0001) {
+        currentProgRef.current += diff * 0.08;
       } else {
         currentProgRef.current = targetProgRef.current;
       }
       
       const p = currentProgRef.current;
-      setSmoothProg(p);
-      setActiveIdx(Math.min(goalsData.length - 1, Math.max(0, Math.round(p))));
+      
+      // ONLY trigger React re-render if the value has changed!
+      // This completely prevents the CPU-freezing infinite re-render loop.
+      if (Math.abs(p - lastP) > 0.001) {
+        setSmoothProg(p);
+        setActiveIdx(Math.min(displayedGoals.length - 1, Math.max(0, Math.round(p))));
+        lastP = p;
+      }
       
       rafRef.current = requestAnimationFrame(loop);
     };
 
     rafRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafRef.current);
-  }, []);
+  }, [displayedGoals.length]);
 
   // Click handler to smoothly scroll to any specific goal slide
   const handleNavClick = (idx) => {
@@ -111,6 +126,7 @@ export default function Goals() {
   return (
     <section
       ref={sectionRef}
+      data-section="goals"
       style={{
         height: `calc(100vh + ${TOTAL_SCROLL}px)`,
         position: 'relative',
@@ -178,7 +194,7 @@ export default function Goals() {
 
               {/* Rotating Number Reel */}
               <div className="relative w-full h-full flex items-center">
-                {goalsData.map((g, i) => {
+                {displayedGoals.map((g, i) => {
                   const offset = i - smoothProg;
                   const angleDeg = offset * ANGLE_STEP;
                   const angleRad = (angleDeg * Math.PI) / 180;
@@ -236,7 +252,7 @@ export default function Goals() {
 
             {/* CENTER COLUMN: Typography & Content Slider with Strict Zero-Overlap Physics */}
             <div className="lg:col-span-5 relative h-[250px] sm:h-[300px] md:h-[400px] flex items-center justify-center lg:justify-start">
-              {goalsData.map((g, i) => {
+              {displayedGoals.map((g, i) => {
                 const offset = i - smoothProg;
                 const dist = Math.abs(offset);
                 
@@ -295,7 +311,7 @@ export default function Goals() {
 
             {/* RIGHT COLUMN: Minimal Rendered Images */}
             <div className="lg:col-span-4 relative h-[200px] sm:h-[260px] md:h-[420px] flex items-center justify-center">
-              {goalsData.map((g, i) => {
+              {displayedGoals.map((g, i) => {
                 const offset = i - smoothProg;
                 const dist = Math.abs(offset);
                 
@@ -349,27 +365,16 @@ export default function Goals() {
         ) : (
           /* MOBILE VIEW: Vertical Scroll-Jacking Layout */
           <div className="w-full h-[550px] sm:h-[650px] relative flex items-center justify-center pt-8">
-             {goalsData.map((g, i) => {
+              {displayedGoals.map((g, i) => {
                 const offset = i - smoothProg;
                 const dist = Math.abs(offset);
                 
-                const plateau = 0.28;
-                const transSpan = 0.20; 
-                let opacity = 0;
-                let translateY = 0;
-                let scale = 1;
+                // Calculate horizontal translation based on scroll offset
+                const translateX = offset * windowWidth * 0.85; // 85% of screen width per slide
                 
-                if (dist <= plateau) {
-                  opacity = 1.0;
-                  translateY = 0;
-                } else if (dist < plateau + transSpan) {
-                  const t = (dist - plateau) / transSpan;
-                  opacity = 1 - t;
-                  translateY = Math.sign(offset) * t * 40;
-                  scale = 1 - t * 0.05;
-                } else {
-                  opacity = 0;
-                }
+                // Fade out slightly when off-center
+                const opacity = Math.max(0, 1 - dist * 1.8);
+                const scale = Math.max(0.8, 1 - dist * 0.15);
 
                 if (opacity <= 0.01) return null;
 
@@ -384,7 +389,7 @@ export default function Goals() {
                       alignItems: 'center',
                       justifyContent: 'center',
                       opacity: opacity,
-                      transform: `translateY(${translateY}px) scale(${scale})`,
+                      transform: `translateX(${translateX}px) scale(${scale})`,
                       pointerEvents: dist < 0.35 ? 'auto' : 'none',
                     }}
                     className="px-6 text-center"
@@ -433,4 +438,6 @@ export default function Goals() {
       `}</style>
     </section>
   );
-}
+};
+
+export default Goals;
