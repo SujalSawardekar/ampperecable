@@ -427,6 +427,44 @@ const Goals = () => {
              })}
           </div>
         )}
+
+        {/* ── EASY-NAV OVERLAY BUTTONS & DOTS (Solves stuck scroll and mobile navigation) ── */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex lg:hidden items-center gap-3 bg-white/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-black/10 shadow-sm">
+          {/* Prev Arrow */}
+          <button
+            onClick={() => handleNavClick(Math.max(0, activeIdx - 1))}
+            disabled={activeIdx === 0}
+            style={{ fontFamily: 'monospace' }}
+            className={`w-8 h-8 rounded-full flex items-center justify-center border border-black/10 transition bg-white shadow-sm font-bold text-sm ${activeIdx === 0 ? 'opacity-30 cursor-not-allowed text-gray-400' : 'hover:bg-red-50 text-red-600 active:scale-95'}`}
+            aria-label="Previous Item"
+          >
+            &lt;
+          </button>
+          
+          {/* Bullets */}
+          <div className="flex items-center gap-1.5">
+            {displayedGoals.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleNavClick(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${idx === activeIdx ? 'bg-[#C62828] w-6' : 'bg-gray-300 hover:bg-gray-400 w-2.5'}`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Next Arrow */}
+          <button
+            onClick={() => handleNavClick(Math.min(displayedGoals.length - 1, activeIdx + 1))}
+            disabled={activeIdx === displayedGoals.length - 1}
+            style={{ fontFamily: 'monospace' }}
+            className={`w-8 h-8 rounded-full flex items-center justify-center border border-black/10 transition bg-white shadow-sm font-bold text-sm ${activeIdx === displayedGoals.length - 1 ? 'opacity-30 cursor-not-allowed text-gray-400' : 'hover:bg-red-50 text-red-600 active:scale-95'}`}
+            aria-label="Next Item"
+          >
+            &gt;
+          </button>
+        </div>
+
       </div>
 
       {/* Floating keyframes for the 3D sculpted icons */}

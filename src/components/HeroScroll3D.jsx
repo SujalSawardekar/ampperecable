@@ -317,7 +317,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
           zIndex: 30,
           opacity: isLoaded ? Math.max(0, 1 - Math.max(0, progress - 0.92) * 15) : 0,
           left: '50%',
-          bottom: isMobile ? '1.75rem' : '4rem',
+          bottom: isMobile ? '4.0rem' : '4rem',
           transform: isLoaded 
             ? 'translateX(-50%) translateY(0)'
             : 'translateX(-50%) translateY(20px)',
@@ -371,7 +371,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
 
         {/* Stats card (Seamless dimensions) */}
         <div 
-          className="flex flex-row flex-nowrap justify-center items-center gap-1.5 md:gap-7 relative bg-[rgba(10,5,5,0.65)] backdrop-blur-[20px] saturate-[180%] border border-white/20 rounded-2xl md:rounded-[20px] p-2.5 md:px-9 md:py-4 text-white shadow-[0_20px_50px_0_rgba(0,0,0,0.65),0_0_30px_rgba(198,40,40,0.15)] w-full"
+          className="flex flex-row flex-nowrap justify-center items-center gap-3.5 md:gap-7 relative bg-[rgba(10,5,5,0.65)] backdrop-blur-[20px] saturate-[180%] border border-white/20 rounded-2xl md:rounded-[20px] py-4 px-5 md:px-9 md:py-4 text-white shadow-[0_20px_50px_0_rgba(0,0,0,0.65),0_0_30px_rgba(198,40,40,0.15)] w-auto max-w-[90%]"
         >
 
           {/* Stat 1 */}

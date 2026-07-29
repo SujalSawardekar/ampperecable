@@ -379,7 +379,7 @@ const ProductShowcase = () => {
             </div>
           )}
         {/* ── EASY-NAV OVERLAY BUTTONS & DOTS (Solves stuck scroll and mobile navigation) ── */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 bg-white/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-black/10 shadow-sm">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex lg:hidden items-center gap-3 bg-white/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-black/10 shadow-sm">
           {/* Prev Arrow */}
           <button
             onClick={() => handleNavClick(Math.max(0, activeIdx - 1))}

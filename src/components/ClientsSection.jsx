@@ -128,11 +128,8 @@ const ClientsSection = React.memo(() => {
               <>
                 {/* Row 1: Left to Right */}
                 <div
-                  className="flex animate-marquee whitespace-nowrap items-center gap-16 md:gap-24"
-                  style={{
-                    opacity: 0,
-                    animation: 'marquee var(--marquee-speed, 25s) linear infinite, logoFadeIn 0.6s 0.35s forwards',
-                  }}
+                  className="flex logo-marquee-row-1 whitespace-nowrap items-center gap-16 md:gap-24"
+                  style={{ opacity: 0 }}
                 >
                   {clientLogos.concat(clientLogos).map((logo, idx) => (
                     <div key={`row1-${idx}`} className="flex items-center justify-center flex-shrink-0">
@@ -148,12 +145,8 @@ const ClientsSection = React.memo(() => {
 
                 {/* Row 2: Right to Left */}
                 <div
-                  className="flex animate-marquee whitespace-nowrap items-center gap-16 md:gap-24"
-                  style={{
-                    animationDirection: 'reverse',
-                    opacity: 0,
-                    animation: 'marquee var(--marquee-speed, 25s) linear infinite reverse, logoFadeIn 0.6s 0.5s forwards',
-                  }}
+                  className="flex logo-marquee-row-2 whitespace-nowrap items-center gap-16 md:gap-24"
+                  style={{ opacity: 0 }}
                 >
                   {clientLogos.slice().reverse().concat(clientLogos.slice().reverse()).map((logo, idx) => (
                     <div key={`row2-${idx}`} className="flex items-center justify-center flex-shrink-0">
@@ -172,12 +165,22 @@ const ClientsSection = React.memo(() => {
         </div>
       </div>
       <style>{`
-        :root {
-          --marquee-speed: 25s;
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .logo-marquee-row-1 {
+          animation: marquee 25s linear infinite, logoFadeIn 0.6s 0.35s forwards;
+        }
+        .logo-marquee-row-2 {
+          animation: marquee 25s linear infinite reverse, logoFadeIn 0.6s 0.5s forwards;
         }
         @media (max-width: 767px) {
-          :root {
-            --marquee-speed: 12s;
+          .logo-marquee-row-1 {
+            animation: marquee 4.5s linear infinite, logoFadeIn 0.6s 0.35s forwards;
+          }
+          .logo-marquee-row-2 {
+            animation: marquee 4.5s linear infinite reverse, logoFadeIn 0.6s 0.5s forwards;
           }
         }
         .mask-edges {
