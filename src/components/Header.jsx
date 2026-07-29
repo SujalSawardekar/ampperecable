@@ -25,44 +25,68 @@ const MailIcon = () => (
   </svg>
 );
 
-const FacebookIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-  </svg>
-);
-
-const InstagramIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <circle cx="12" cy="12" r="4" />
-    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-  </svg>
-);
-
-const YoutubeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.58C5.12 20.04 12 20.04 12 20.04s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
-    <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
-  </svg>
-);
-
-const ChevronIcon = ({ open }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+const ChevronIcon = ({ open, isTransparent }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? (isTransparent ? 'rotate-180 text-red-400' : 'rotate-180 text-red-600') : (isTransparent ? 'text-white/70' : 'text-neutral-400')}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
   </svg>
 );
 
 const FireIcon = () => (
-  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 21c3.6 0 6.5-2.6 6.5-6.2 0-2.7-1.6-4.8-3.6-6.7-.3 1.8-1.2 3-2.4 3.7.2-3.2-1.4-5.8-4-7.8.2 3-3 5.1-3 9.5C5.5 17.8 8.4 21 12 21z" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.5c1.4 0 2.5-1 2.5-2.5 0-1.2-.7-2.1-1.6-3-.2 1-.7 1.7-1.5 2.1.1-1.6-.6-2.9-1.8-3.9.1 1.6-1.2 2.7-1.2 4.7 0 1.5 1.2 2.6 3.6 2.6z" />
   </svg>
 );
 
 const IndustryIcon = () => (
-  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21V10l5 3V9l5 4V7h4v14" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M8 17h1.5M12 17h1.5M16 17h1.5" />
+  </svg>
+);
+
+const AboutIcon = () => (
+  <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 flex-shrink-0">
+    {/* Circle border */}
+    <circle cx="256" cy="256" r="230" stroke="#ef4444" strokeWidth="28" fill="none"/>
+    {/* Tall left building */}
+    <rect x="120" y="110" width="180" height="290" rx="6" stroke="#ef4444" strokeWidth="20" fill="none"/>
+    {/* Roof slope (diagonal line from top-right of tall building to top of short building) */}
+    <line x1="300" y1="110" x2="390" y2="220" stroke="#ef4444" strokeWidth="20" strokeLinecap="round"/>
+    {/* Short right building */}
+    <rect x="300" y="220" width="100" height="180" rx="6" stroke="#ef4444" strokeWidth="20" fill="none"/>
+    {/* Ground line */}
+    <line x1="115" y1="400" x2="405" y2="400" stroke="#ef4444" strokeWidth="20" strokeLinecap="round"/>
+    {/* Windows left building — row 1 */}
+    <rect x="148" y="148" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="196" y="148" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="244" y="148" width="28" height="24" rx="3" fill="#ef4444"/>
+    {/* Windows left building — row 2 */}
+    <rect x="148" y="192" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="196" y="192" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="244" y="192" width="28" height="24" rx="3" fill="#ef4444"/>
+    {/* Windows left building — row 3 */}
+    <rect x="148" y="236" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="196" y="236" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="244" y="236" width="28" height="24" rx="3" fill="#ef4444"/>
+    {/* Windows left building — row 4 */}
+    <rect x="148" y="280" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="196" y="280" width="28" height="24" rx="3" fill="#ef4444"/>
+    <rect x="244" y="280" width="28" height="24" rx="3" fill="#ef4444"/>
+    {/* Door (center of left building) */}
+    <rect x="210" y="345" width="50" height="55" rx="4" stroke="#ef4444" strokeWidth="16" fill="none"/>
+    {/* Right building windows (horizontal bars) */}
+    <rect x="320" y="258" width="60" height="18" rx="4" fill="#ef4444"/>
+    <rect x="320" y="300" width="60" height="18" rx="4" fill="#ef4444"/>
+  </svg>
+);
+
+const FounderIcon = () => (
+  <svg className="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
 
@@ -72,11 +96,30 @@ const Header = () => {
   const [aboutMenuOpen, setAboutMenuOpen] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isGoalsReached, setIsGoalsReached] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const location = useLocation();
+
+  const isHomePage = location.pathname === '/';
+  
+  // Routes with dark background theme requiring dark navigation style
+  const darkRoutes = ['/about', '/founder', '/blog', '/contact'];
+  const isDarkPage = darkRoutes.some(route => location.pathname.startsWith(route));
+  const isDarkTheme = isHomePage ? (!isGoalsReached) : isDarkPage;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 1100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+      
+      setIsScrolled(scrollY > 10);
+      // 2.7 * vh transitions the navbar color just as the Goals section slides up to the top
+      setIsGoalsReached(scrollY > 2.65 * vh);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -118,109 +161,129 @@ const Header = () => {
   return (
     <>
       <ScrollToTop />
-      <header className="w-full bg-[#1D102F] text-white shadow-lg sticky top-0 z-40">
-        {/* Top Bar */}
-        <div className={`hidden md:flex justify-between items-stretch bg-black text-white border-b border-white/5 transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 opacity-0 border-transparent' : 'h-10 opacity-100'}`}>
-          {/* Contact Info (Left) */}
-          <div className="flex items-center gap-8 px-8 text-sm font-medium text-gray-300">
-            <a href="tel:+919370946510" className="flex items-center gap-2 hover:text-white transition-colors">
-              <PhoneIcon /> +91 9370946510
-            </a>
-            <a href="mailto:infoampperecable@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors">
-              <MailIcon /> infoampperecable@gmail.com
-            </a>
-          </div>
-
-          {/* Social Icons (Right) - Curved white background */}
-          <div className="bg-white text-black flex items-center gap-5 px-10 rounded-tl-full relative">
-            <a href="https://www.facebook.com/people/Amppere-Cable/61566408188370/" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </a>
-            <a href="https://www.instagram.com/ampperecable" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-              </svg>
-            </a>
-            <a href="https://www.youtube.com/channel/UCUpTOAVXEGQzM34Eke8kNRA" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        {/* Main Navbar */}
-        <nav className={`mx-auto flex items-center justify-between bg-[#151025] px-4 md:px-8 transition-all duration-300 ${isScrolled ? 'py-1 shadow-md' : 'py-3'}`}>
-          {/* Logo (disappears on scroll) */}
-          <Link to="/" className={`flex-shrink-0 transition-all duration-500 ease-in-out overflow-hidden flex items-center ${isScrolled ? 'max-w-0 opacity-0 mr-0' : 'max-w-[300px] opacity-100 mr-6 lg:mr-12'}`} onClick={closeAllMenus}>
-            <img src={O.logo} alt="Amppere Cable" className="h-14 sm:h-16 md:h-20 w-auto object-contain" />
+      {/* 
+        Adaptive Navigation Bar:
+        1. Home (top/hero): Floating transparent glass pill with dark maroon frame background.
+        2. Home (goals section): Minimal full-width white glass navbar.
+        3. Dark Pages (About, Founder, Blogs, Enquiry): Sleek dark glass header with light text/icons.
+        4. Light Pages (Products, Clients): Minimal white glass header with dark text/icons.
+      */}
+      <header
+        className={`fixed left-1/2 z-50 transition-all duration-700 ease-out font-inter ${
+          isLoaded 
+            ? '-translate-x-1/2 translate-y-0 opacity-100' 
+            : '-translate-x-1/2 -translate-y-full opacity-0 pointer-events-none'
+        } ${
+          isHomePage
+            ? isScrolled
+              ? isGoalsReached
+                ? 'top-0 w-full max-w-full rounded-none bg-white/95 backdrop-blur-lg border-b border-neutral-200/50 shadow-sm py-3 px-6 md:px-12 text-neutral-800'
+                : 'top-0 w-full max-w-full rounded-none bg-[#290508]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl py-2.5 px-6 md:px-12 text-white'
+              : 'top-3 sm:top-5 w-[92%] max-w-5xl rounded-full bg-white/10 border border-white/25 backdrop-blur-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.45)] py-2 px-5 sm:px-8 text-white'
+            : isDarkTheme
+              ? 'top-0 w-full max-w-full rounded-none bg-[#120204]/90 backdrop-blur-xl border-b border-white/10 shadow-2xl py-3 px-6 md:px-12 text-white'
+              : 'top-0 w-full max-w-full rounded-none bg-white/95 backdrop-blur-lg border-b border-neutral-200/50 shadow-sm py-3 px-6 md:px-12 text-neutral-800'
+        }`}
+      >
+        <div className="flex items-center justify-between w-full mx-auto">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 group flex-shrink-0"
+            onClick={closeAllMenus}
+          >
+            <img
+              src={O.logo}
+              alt="Amppere Cable"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <ul className={`hidden md:flex items-center flex-1 gap-8 lg:gap-14 transition-all duration-500 ${isScrolled ? 'justify-start' : 'justify-center'}`}>
+          {/* Desktop Navigation Links (Consistent Casing) */}
+          <ul className={`hidden md:flex items-center justify-center gap-8 lg:gap-10 text-sm font-medium transition-colors duration-300 ${isDarkTheme ? 'text-white/95' : 'text-neutral-700'}`}>
             <li>
-              <Link to="/" className="text-sm lg:text-base font-medium tracking-wide hover:text-white text-gray-300 transition-colors whitespace-nowrap">
-                Home
+              <Link
+                to="/"
+                className={`transition-colors py-2 relative group ${isDarkTheme ? 'hover:text-red-400' : 'hover:text-red-600'}`}
+              >
+                <span>Home</span>
               </Link>
             </li>
-            {/* About dropdown - hover opens, inline with li */}
+
+            {/* About Dropdown */}
             <li
               className="relative"
               onMouseEnter={() => { setAboutMenuOpen(true); setProductsMenuOpen(false); }}
               onMouseLeave={() => setAboutMenuOpen(false)}
             >
               <button
-                className={`flex items-center gap-1 text-sm lg:text-base font-medium tracking-wide hover:text-white transition-colors focus:outline-none py-5 ${aboutMenuOpen ? 'text-white' : 'text-gray-300'}`}
+                className={`flex items-center gap-1.5 transition-colors focus:outline-none py-2 ${
+                  isDarkTheme 
+                    ? (aboutMenuOpen ? 'text-red-400' : 'hover:text-red-400') 
+                    : (aboutMenuOpen ? 'text-red-600' : 'hover:text-red-600')
+                }`}
               >
-                About <svg className="w-3.5 h-3.5 ml-0.5 transition-transform duration-200" style={{transform: aboutMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                <span>About</span>
+                <ChevronIcon open={aboutMenuOpen} isTransparent={isDarkTheme} />
               </button>
-              {/* About Dropdown Panel */}
-              <div className={`absolute left-0 top-full pt-1 transition-all duration-200 origin-top z-50 ${
+
+              <div className={`absolute left-0 top-full pt-3 transition-all duration-200 origin-top z-50 ${
                 aboutMenuOpen ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'
               }`}>
-                <div className="w-56 rounded-xl bg-white text-gray-950 shadow-2xl overflow-hidden border border-gray-100">
+                <div className={`w-56 rounded-2xl shadow-2xl overflow-hidden border p-2 backdrop-blur-2xl ${
+                  isDarkTheme 
+                    ? 'bg-[#390609]/95 text-white border-white/20' 
+                    : 'bg-white text-neutral-800 border-neutral-100'
+                }`}>
                   <Link
                     to="/about"
                     onClick={() => setAboutMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors group"
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      isDarkTheme ? 'hover:bg-red-600/30 hover:text-red-300' : 'hover:bg-neutral-50 hover:text-red-600'
+                    }`}
                   >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-600 group-hover:bg-red-100 group-hover:text-red-600 transition-colors flex-shrink-0">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm6-4h10V3H9v14zm-4 0h2V7H5v10zm12-10h-2v2h2V7zm0 4h-2v2h2v-2zm-4-4h-2v2h2V7zm0 4h-2v2h2v-2z"/></svg>
-                    </span>
-                    Company Overview
+                    <AboutIcon />
+                    <span>Company Overview</span>
                   </Link>
                   <Link
                     to="/founder"
                     onClick={() => setAboutMenuOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors group border-t border-gray-100"
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all border-t ${
+                      isDarkTheme ? 'hover:bg-red-600/30 hover:text-red-300 border-white/10' : 'hover:bg-neutral-50 hover:text-red-600 border-neutral-50'
+                    }`}
                   >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-600 group-hover:bg-red-100 group-hover:text-red-600 transition-colors flex-shrink-0">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" /></svg>
-                    </span>
-                    Founder &amp; MD
+                    <FounderIcon />
+                    <span>Founder &amp; MD</span>
                   </Link>
                 </div>
               </div>
             </li>
 
-            {/* Products dropdown - hover opens, inline with li */}
+            {/* Products Dropdown */}
             <li
               className="relative"
               onMouseEnter={() => { setProductsMenuOpen(true); setAboutMenuOpen(false); }}
               onMouseLeave={() => { setProductsMenuOpen(false); setHoveredCategory(null); }}
             >
               <button
-                className={`flex items-center gap-1 text-sm lg:text-base font-medium tracking-wide hover:text-white transition-colors focus:outline-none py-5 ${productsMenuOpen ? 'text-white' : 'text-gray-300'}`}
+                className={`flex items-center gap-1.5 transition-colors focus:outline-none py-2 ${
+                  isDarkTheme 
+                    ? (productsMenuOpen ? 'text-red-400' : 'hover:text-red-400') 
+                    : (productsMenuOpen ? 'text-red-600' : 'hover:text-red-600')
+                }`}
               >
-                Product <svg className="w-3.5 h-3.5 ml-0.5 transition-transform duration-200" style={{transform: productsMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+                <span>Products</span>
+                <ChevronIcon open={productsMenuOpen} isTransparent={isDarkTheme} />
               </button>
-              {/* Products Dropdown Panel */}
-              <div className={`absolute left-0 top-full pt-1 transition-all duration-200 origin-top z-50 ${
+
+              <div className={`absolute left-1/2 -translate-x-1/2 top-full pt-3 transition-all duration-200 origin-top z-50 ${
                 productsMenuOpen ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'
               }`}>
-                <div className="w-64 rounded-xl bg-white text-gray-950 shadow-2xl overflow-hidden border border-gray-100">
+                <div className={`w-72 rounded-2xl shadow-2xl overflow-hidden border p-2 backdrop-blur-2xl ${
+                  isDarkTheme 
+                    ? 'bg-[#390609]/95 text-white border-white/20' 
+                    : 'bg-white text-neutral-800 border-neutral-100'
+                }`}>
                   {categories.map((cat, idx) => (
                     <Link
                       key={cat.name}
@@ -228,84 +291,105 @@ const Header = () => {
                       onClick={() => { setProductsMenuOpen(false); setHoveredCategory(null); }}
                       onMouseEnter={() => setHoveredCategory(cat.name)}
                       onMouseLeave={() => setHoveredCategory(null)}
-                      className={`flex w-full items-center gap-3 px-4 py-3 text-sm font-medium transition-colors group ${
-                        hoveredCategory === cat.name ? 'bg-red-50 text-red-600' : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
-                      } ${idx > 0 ? 'border-t border-gray-100' : ''}`}
+                      className={`flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                        isDarkTheme 
+                          ? (hoveredCategory === cat.name ? 'bg-red-600/30 text-red-300' : 'hover:bg-red-600/20 hover:text-red-300')
+                          : (hoveredCategory === cat.name ? 'bg-neutral-50 text-red-600' : 'hover:bg-neutral-50 hover:text-red-600')
+                      } ${idx > 0 ? (isDarkTheme ? 'border-t border-white/10' : 'border-t border-neutral-50') : ''}`}
                     >
-                      <span className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors flex-shrink-0 ${
-                        hoveredCategory === cat.name ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600 group-hover:bg-red-100 group-hover:text-red-600'
-                      }`}>
+                      <span className="shrink-0 text-red-500">
                         {getCategoryIcon(cat.name)}
                       </span>
-                      {cat.name}
+                      <span className="truncate">{cat.name}</span>
                     </Link>
                   ))}
                 </div>
               </div>
             </li>
+
             <li>
-              <Link to="/clients" className="text-sm lg:text-base font-medium tracking-wide hover:text-white text-gray-300 transition-colors whitespace-nowrap">
-                Client
+              <Link
+                to="/clients"
+                className={`transition-colors py-2 relative group ${isDarkTheme ? 'hover:text-red-400' : 'hover:text-red-600'}`}
+              >
+                <span>Clients</span>
               </Link>
             </li>
+
             <li>
-              <Link to="/blog" className="text-sm lg:text-base font-medium tracking-wide hover:text-white text-gray-300 transition-colors whitespace-nowrap">
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="text-sm lg:text-base font-medium tracking-wide hover:text-white text-gray-300 transition-colors whitespace-nowrap">
-                Enquiry
+              <Link
+                to="/contact"
+                className={`transition-colors py-2 relative group ${isDarkTheme ? 'hover:text-red-400' : 'hover:text-red-600'}`}
+              >
+                <span>Enquiry</span>
               </Link>
             </li>
           </ul>
 
-          {/* Download Brochure Button */}
-          <button
-            onClick={handleDownloadBrochure}
-            className="hidden md:inline-flex items-center justify-center bg-[#ef2334] hover:bg-[#d61f2e] text-white text-sm lg:text-base font-medium px-5 lg:px-6 py-2.5 rounded-lg transition-colors flex-shrink-0"
-          >
-            Download Brochure
-          </button>
+          {/* Action CTA Button */}
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={handleDownloadBrochure}
+              className="inline-flex items-center gap-2 bg-[#C62828] text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-neutral-900 transition-all duration-300 shadow-md group"
+            >
+              <span>Brochure</span>
+              <svg 
+                className="w-4 h-4 transform group-hover:translate-y-0.5 transition-transform duration-300" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </button>
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
-            className="md:hidden text-white focus:outline-none p-1.5 rounded-md hover:bg-white/10 transition-colors ml-auto"
+            className={`md:hidden focus:outline-none p-1.5 rounded-lg transition-colors ml-auto ${
+              isDarkTheme ? 'text-white bg-white/10 hover:bg-white/20' : 'text-neutral-800 hover:bg-neutral-100'
+            }`}
           >
             {mobileMenuOpen ? (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
-        </nav>
+        </div>
       </header>
 
-      {/* Mobile Drawer Navigation overlay */}
+      {/* Mobile Drawer Overlay */}
       <div
         onClick={closeAllMenus}
-        className={`fixed inset-0 bg-black/60 z-50 md:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-neutral-900/60 backdrop-blur-sm z-[60] md:hidden transition-opacity duration-300 ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       />
 
       {/* Mobile Drawer */}
       <aside
-        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] bg-black z-[60] md:hidden shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
+        className={`fixed top-0 right-0 h-full w-72 max-w-[85vw] z-[70] md:hidden shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
+          isDarkTheme 
+            ? 'bg-[#290508] text-white border-l border-white/10' 
+            : 'bg-white text-neutral-800'
         }`}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 flex-shrink-0">
-          <img src={O.logo} alt="Amppere Cable" className="h-10 w-auto" />
+        <div className={`flex items-center justify-between px-5 py-5 border-b flex-shrink-0 ${
+          isDarkTheme ? 'border-white/10' : 'border-neutral-100'
+        }`}>
+          <img src={O.logo} alt="Amppere Cable" className="h-8 w-auto" />
           <button
             onClick={closeAllMenus}
-            className="text-white p-1 rounded-md hover:bg-white/10 transition-colors focus:outline-none"
+            className={`p-1 rounded-md transition-colors focus:outline-none ${
+              isDarkTheme ? 'text-white hover:bg-white/10' : 'text-neutral-500 hover:bg-neutral-100'
+            }`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -313,103 +397,91 @@ const Header = () => {
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto px-5 py-4">
-          <ul className="space-y-0.5">
+        <nav className="flex-1 overflow-y-auto px-4 py-4 font-inter">
+          <ul className="space-y-1">
             <li>
-              <Link to="/" onClick={closeAllMenus} className="flex items-center py-3 px-2 text-white text-sm border-b border-white/10 hover:text-red-400 transition-colors rounded-md hover:bg-white/5">
+              <Link to="/" onClick={closeAllMenus} className={`flex items-center py-3 px-3 text-sm font-medium transition-colors rounded-lg ${
+                isDarkTheme ? 'text-white hover:text-red-400 hover:bg-white/5' : 'text-neutral-800 hover:text-red-600 hover:bg-neutral-50'
+              }`}>
                 Home
               </Link>
             </li>
-            <li className="border-b border-white/10">
+            <li>
               <button
                 onClick={() => setAboutMenuOpen(!aboutMenuOpen)}
-                className="w-full flex items-center justify-between py-3 px-2 text-white text-sm hover:text-red-400 transition-colors focus:outline-none rounded-md hover:bg-white/5"
+                className={`w-full flex items-center justify-between py-3 px-3 text-sm font-medium transition-colors focus:outline-none rounded-lg ${
+                  isDarkTheme ? 'text-white hover:text-red-400 hover:bg-white/5' : 'text-neutral-800 hover:text-red-600 hover:bg-neutral-50'
+                }`}
               >
-                About <ChevronIcon open={aboutMenuOpen} />
+                <span>About</span> <ChevronIcon open={aboutMenuOpen} isTransparent={isDarkTheme} />
               </button>
               <div className={`overflow-hidden transition-all duration-300 ${aboutMenuOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <ul className="pl-4 pb-2 space-y-0.5">
+                <ul className="pl-4 pb-2 space-y-1">
                   <li>
-                    <Link to="/about" onClick={closeAllMenus} className="block py-2 px-2 text-gray-300 text-sm hover:text-red-400 rounded-md hover:bg-white/5 transition-colors">
+                    <Link to="/about" onClick={closeAllMenus} className={`block py-2 px-3 text-sm rounded-lg transition-colors ${
+                      isDarkTheme ? 'text-gray-300 hover:text-red-400 hover:bg-white/5' : 'text-neutral-600 hover:text-red-600 hover:bg-neutral-50'
+                    }`}>
                       Company Overview
                     </Link>
                   </li>
                   <li>
-                    <Link to="/founder" onClick={closeAllMenus} className="block py-2 px-2 text-gray-300 text-sm hover:text-red-400 rounded-md hover:bg-white/5 transition-colors">
-                      Founder & MD
+                    <Link to="/founder" onClick={closeAllMenus} className={`block py-2 px-3 text-sm rounded-lg transition-colors ${
+                      isDarkTheme ? 'text-gray-300 hover:text-red-400 hover:bg-white/5' : 'text-neutral-600 hover:text-red-600 hover:bg-neutral-50'
+                    }`}>
+                      Founder &amp; MD
                     </Link>
                   </li>
                 </ul>
               </div>
             </li>
-            <li className="border-b border-white/10">
+            <li>
               <button
                 onClick={() => setProductsMenuOpen(!productsMenuOpen)}
-                className="w-full flex items-center justify-between py-3 px-2 text-white text-sm hover:text-red-400 transition-colors focus:outline-none rounded-md hover:bg-white/5"
+                className={`w-full flex items-center justify-between py-3 px-3 text-sm font-medium transition-colors focus:outline-none rounded-lg ${
+                  isDarkTheme ? 'text-white hover:text-red-400 hover:bg-white/5' : 'text-neutral-800 hover:text-red-600 hover:bg-neutral-50'
+                }`}
               >
-                Products <ChevronIcon open={productsMenuOpen} />
+                <span>Products</span> <ChevronIcon open={productsMenuOpen} isTransparent={isDarkTheme} />
               </button>
               <div className={`overflow-hidden transition-all duration-300 ${productsMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                <ul className="pl-3 pb-2 space-y-0.5">
+                <ul className="pl-4 pb-2 space-y-1">
                   {categories.map((cat) => (
                     <li key={cat.name}>
-                      <div className="flex items-center justify-between w-full">
-                        <Link
-                          to={`/products?category=${encodeURIComponent(cat.name)}`}
-                          onClick={closeAllMenus}
-                          className="flex-1 py-2.5 px-2 text-left text-gray-200 text-sm font-semibold hover:text-red-400 transition-colors rounded-md hover:bg-white/5"
-                        >
-                          {cat.name}
-                        </Link>
-                        <button
-                          onClick={() => setHoveredCategory(hoveredCategory === cat.name ? null : cat.name)}
-                          className="p-2 text-gray-200 hover:text-red-400 transition-colors focus:outline-none rounded-md"
-                        >
-                          <ChevronIcon open={hoveredCategory === cat.name} />
-                        </button>
-                      </div>
-                      <div className={`overflow-hidden transition-all duration-300 ${hoveredCategory === cat.name ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
-                        <ul className="pl-4 pb-1 space-y-0.5">
-                          {cat.products.map(([name, routePath]) => (
-                            <li key={name}>
-                              <Link
-                                to={routePath}
-                                onClick={closeAllMenus}
-                                className="block py-2 px-2 text-gray-400 text-sm hover:text-red-400 rounded-md hover:bg-white/5 transition-colors"
-                              >
-                                {name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <Link
+                        to={`/products?category=${encodeURIComponent(cat.name)}`}
+                        onClick={closeAllMenus}
+                        className={`block py-2 px-3 text-sm rounded-lg transition-colors ${
+                          isDarkTheme ? 'text-gray-300 hover:text-red-400 hover:bg-white/5' : 'text-neutral-600 hover:text-red-600 hover:bg-neutral-50'
+                        }`}
+                      >
+                        {cat.name}
+                      </Link>
                     </li>
                   ))}
                 </ul>
               </div>
             </li>
             <li>
-              <Link to="/clients" onClick={closeAllMenus} className="flex items-center py-3 px-2 text-white text-sm border-b border-white/10 hover:text-red-400 transition-colors rounded-md hover:bg-white/5">
+              <Link to="/clients" onClick={closeAllMenus} className={`flex items-center py-3 px-3 text-sm font-medium transition-colors rounded-lg ${
+                isDarkTheme ? 'text-white hover:text-red-400 hover:bg-white/5' : 'text-neutral-800 hover:text-red-600 hover:bg-neutral-50'
+              }`}>
                 Clients
               </Link>
             </li>
             <li>
-              <Link to="/blog" onClick={closeAllMenus} className="flex items-center py-3 px-2 text-white text-sm border-b border-white/10 hover:text-red-400 transition-colors rounded-md hover:bg-white/5">
-                Blogs
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" onClick={closeAllMenus} className="flex items-center py-3 px-2 text-white text-sm border-b border-white/10 hover:text-red-400 transition-colors rounded-md hover:bg-white/5">
+              <Link to="/contact" onClick={closeAllMenus} className={`flex items-center py-3 px-3 text-sm font-medium transition-colors rounded-lg ${
+                isDarkTheme ? 'text-white hover:text-red-400 hover:bg-white/5' : 'text-neutral-800 hover:text-red-600 hover:bg-neutral-50'
+              }`}>
                 Enquiry
               </Link>
             </li>
-            <li className="pt-4">
+            <li className="pt-6 pb-4">
               <button
                 onClick={() => {
                   handleDownloadBrochure();
                   closeAllMenus();
                 }}
-                className="w-full bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-sm px-4 py-3 rounded-lg transition-colors shadow-md"
+                className="w-full bg-[#C62828] text-white text-sm font-bold px-4 py-3.5 rounded-full hover:bg-neutral-900 transition-colors shadow-md"
               >
                 Download Brochure
               </button>
@@ -417,25 +489,29 @@ const Header = () => {
           </ul>
         </nav>
 
-        {/* Mobile Contact & Social Details */}
-        <div className="flex-shrink-0 border-t border-white/10 px-5 py-4 space-y-2.5 bg-[#0d0d20]">
-          <a href="tel:+919370946510" className="flex items-center gap-2 text-gray-400 text-xs hover:text-white transition-colors">
-            <PhoneIcon /> +91 9370946510
+        <div className={`flex-shrink-0 border-t px-5 py-6 space-y-3 text-sm ${
+          isDarkTheme ? 'border-white/10 bg-black/40' : 'border-neutral-100 bg-neutral-50'
+        }`}>
+          <a href="tel:+919370946510" className={`flex items-center gap-3 transition-colors font-medium ${
+            isDarkTheme ? 'text-gray-300 hover:text-white' : 'text-neutral-600 hover:text-red-600'
+          }`}>
+            <span className={`w-8 h-8 rounded-full shadow-sm flex items-center justify-center ${
+              isDarkTheme ? 'bg-white/5 text-neutral-400' : 'bg-white text-neutral-400'
+            }`}>
+              <PhoneIcon />
+            </span>
+            +91 9370946510
           </a>
-          <a href="mailto:infoampperecable@gmail.com" className="flex items-center gap-2 text-gray-400 text-xs hover:text-white transition-colors">
-            <MailIcon /> infoampperecable@gmail.com
+          <a href="mailto:infoampperecable@gmail.com" className={`flex items-center gap-3 transition-colors font-medium ${
+            isDarkTheme ? 'text-gray-300 hover:text-white' : 'text-neutral-600 hover:text-red-600'
+          }`}>
+            <span className={`w-8 h-8 rounded-full shadow-sm flex items-center justify-center ${
+              isDarkTheme ? 'bg-white/5 text-neutral-400' : 'bg-white text-neutral-400'
+            }`}>
+              <MailIcon />
+            </span>
+            info@ampperecable.com
           </a>
-          <div className="flex items-center gap-3 pt-1">
-            <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-white transition-colors">
-              <FacebookIcon />
-            </a>
-            <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors">
-              <InstagramIcon />
-            </a>
-            <a href="#" aria-label="YouTube" className="text-gray-400 hover:text-white transition-colors">
-              <YoutubeIcon />
-            </a>
-          </div>
         </div>
       </aside>
     </>

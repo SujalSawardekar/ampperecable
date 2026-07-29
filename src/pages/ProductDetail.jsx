@@ -252,7 +252,7 @@ const ProductDetail = () => {
                 className="group bg-white rounded-2xl border border-gray-200 hover:border-[#cc1111]/30 p-4 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-4"
               >
                 {/* Circular Image on the Left */}
-                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#b0c8e8] to-[#1a2f6a] border border-gray-100">
+                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-neutral-100 border border-neutral-200">
                   <img 
                     src={p.headerImg} 
                     alt={p.productName} 
@@ -284,7 +284,7 @@ const ProductDetail = () => {
       {/* Alternative Category Promo Banner */}
       {getCategoryByProductName(productName) && (
         <div className="w-full max-w-7xl mx-auto px-4 md:px-14 pb-16 pt-6">
-          <div className="bg-gradient-to-r from-[#1a1a6e] to-[#3d6bb5] rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 transform hover:scale-[1.01] transition-transform duration-300">
+          <div className="bg-gradient-to-r from-[#880000] to-[#cc1111] rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 transform hover:scale-[1.01] transition-transform duration-300">
             <div>
               <h3 className="text-white text-2xl md:text-3xl font-extrabold mb-3 font-inter">
                 Explore {getCategoryByProductName(productName) === "Fire Safety" ? "Industrial Cables" : "Fire Safety"}
@@ -294,7 +294,7 @@ const ProductDetail = () => {
               </p>
             </div>
             <Link to={`/products?category=${encodeURIComponent(getCategoryByProductName(productName) === "Fire Safety" ? "Industrial Cables" : "Fire Safety")}`} className="flex-shrink-0">
-              <button className="bg-white text-[#1a1a6e] font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-[#CDEF46] transition-all duration-300 flex items-center gap-2 font-inter active:scale-95">
+              <button className="bg-white text-[#cc1111] font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-neutral-50 transition-all duration-300 flex items-center gap-2 font-inter active:scale-95">
                 View Category
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />

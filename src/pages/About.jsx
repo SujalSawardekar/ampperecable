@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { O } from '../assets';
 import Breadcrumbs from '../components/Breadcrumbs';
 import useSEO from '../hooks/useSEO';
+import { Leaf, Lightbulb, Telescope, Target, Map, Layers, Diamond } from 'lucide-react';
 
 // --- Animated Counter Hook ---
 const useCounter = (target, duration = 2000, start = false) => {
@@ -27,7 +28,13 @@ const StatCard = ({ value, suffix, label, icon, startCounting }) => {
   const count = useCounter(value, 2000, startCounting);
   return (
     <div className="flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-red-600/40 transition-all duration-300 group">
-      <div className="text-2xl md:text-3xl mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">{icon}</div>
+      <div className="w-12 h-12 md:w-14 md:h-14 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+        {typeof icon === 'string' && icon.startsWith('/') ? (
+          <img src={icon} alt={label} className="w-full h-full object-contain" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">{icon}</div>
+        )}
+      </div>
       <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
         {startCounting ? count : 0}<span className="text-red-500">{suffix}</span>
       </div>
@@ -39,12 +46,12 @@ const StatCard = ({ value, suffix, label, icon, startCounting }) => {
 // --- Tab Content Components ---
 const ValuesTab = ({ onCertificatesClick }) => {
   const values = [
-    { icon: "🎯", title: "Quality First", desc: "Every cable we manufacture passes rigorous in-house testing before it leaves our facility. Our commitment to quality is non-negotiable." },
-    { icon: "🔬", title: "Innovation", desc: "Continuously investing in R&D and state-of-the-art equipment to stay ahead of industry demands and international standards." },
-    { icon: "🤝", title: "Customer Focus", desc: "From initial inquiry to post-purchase support, we deliver exceptional service at every stage of the customer journey." },
-    { icon: "⚡", title: "Reliability", desc: "On-time delivery is our promise. We understand that project timelines depend on us, and we take that responsibility seriously." },
-    { icon: "🌱", title: "Sustainability", desc: "Committed to eco-friendly manufacturing practices, using RoHS-compliant materials and minimizing our environmental footprint." },
-    { icon: "🏆", title: "Excellence", desc: "ISO 9001, CE, and RoHS certified — our certifications are proof of our unrelenting pursuit of manufacturing excellence." },
+    { icon: "/icons/7.svg", title: "Quality First", desc: "Every cable we manufacture passes rigorous in-house testing before it leaves our facility. Our commitment to quality is non-negotiable." },
+    { icon: <Lightbulb className="w-3/4 h-3/4 text-white" strokeWidth={1.5} />, title: "Innovation", desc: "Continuously investing in R&D and state-of-the-art equipment to stay ahead of industry demands and international standards." },
+    { icon: "/icons/9.svg", title: "Customer Focus", desc: "From initial inquiry to post-purchase support, we deliver exceptional service at every stage of the customer journey." },
+    { icon: "/icons/10.svg", title: "Reliability", desc: "On-time delivery is our promise. We understand that project timelines depend on us, and we take that responsibility seriously." },
+    { icon: <Leaf className="w-3/4 h-3/4 text-white" strokeWidth={1.5} />, title: "Sustainability", desc: "Committed to eco-friendly manufacturing practices, using RoHS-compliant materials and minimizing our environmental footprint." },
+    { icon: "/icons/12.svg", title: "Excellence", desc: "ISO 9001, CE, and RoHS certified — our certifications are proof of our unrelenting pursuit of manufacturing excellence." },
   ];
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
@@ -52,7 +59,13 @@ const ValuesTab = ({ onCertificatesClick }) => {
         const isExcellence = v.title === "Excellence";
         const content = (
           <>
-            <div className="text-3xl mb-3 group-hover:scale-110 inline-block transition-transform duration-300">{v.icon}</div>
+            <div className="w-12 h-12 mb-3 group-hover:scale-110 inline-block transition-transform duration-300">
+              {typeof v.icon === 'string' ? (
+                <img src={v.icon} alt={v.title} className="w-full h-full object-contain" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">{v.icon}</div>
+              )}
+            </div>
             <h3 className="text-white font-bold text-base mb-2 font-coolvetica">{v.title}</h3>
             <p className="text-gray-400 text-sm leading-relaxed font-open-sans">{v.desc}</p>
           </>
@@ -103,7 +116,7 @@ const CertificationsTab = () => {
           className={`p-5 block text-left rounded-xl bg-gradient-to-br ${c.color} border border-white/10 hover:border-red-500/50 hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(239,68,68,0.08)] transition-all duration-300 cursor-pointer no-underline`}
         >
           <div className="flex items-start gap-3 mb-3">
-            <span className="text-2xl">✅</span>
+            <img src="/icons/quality-white.png" alt="Certified" className="w-7 h-7 object-contain flex-shrink-0" />
             <div>
               <h3 className="text-white font-bold text-base font-coolvetica flex items-center gap-2">
                 {c.name}
@@ -124,21 +137,27 @@ const CertificationsTab = () => {
 const VisionTab = () => (
   <div className="mt-6 space-y-6">
     <div data-aos="fade-right" className="flex gap-5 p-6 rounded-xl bg-gradient-to-r from-red-950/40 to-transparent border border-red-900/30 hover:border-red-600/50 transition-all duration-300">
-      <div className="text-4xl flex-shrink-0">🔭</div>
+      <div className="w-14 h-14 flex-shrink-0">
+        <Telescope className="w-3/4 h-3/4 text-white mx-auto mt-1" strokeWidth={1.5} />
+      </div>
       <div>
         <h3 className="text-white font-bold text-xl mb-2 font-coolvetica">Our Vision</h3>
         <p className="text-gray-300 leading-relaxed font-open-sans">To be India's most trusted manufacturer of specialty cables — recognized globally for quality, innovation, and our unwavering commitment to safety-critical applications. We envision a world where every fire alarm, every emergency system, and every industrial installation is protected by cables that simply never fail.</p>
       </div>
     </div>
     <div data-aos="fade-right" data-aos-delay="100" className="flex gap-5 p-6 rounded-xl bg-gradient-to-r from-blue-950/40 to-transparent border border-blue-900/30 hover:border-blue-600/50 transition-all duration-300">
-      <div className="text-4xl flex-shrink-0">🚀</div>
+      <div className="w-14 h-14 flex-shrink-0">
+        <Target className="w-3/4 h-3/4 text-white mx-auto mt-1" strokeWidth={1.5} />
+      </div>
       <div>
         <h3 className="text-white font-bold text-xl mb-2 font-coolvetica">Our Mission</h3>
         <p className="text-gray-300 leading-relaxed font-open-sans">To manufacture and supply high-performance, certified wire and cable solutions that protect lives, enable industry, and power India's infrastructure — backed by decades of expertise, continuous innovation, and a customer-first philosophy that goes beyond the order to the long-term partnership.</p>
       </div>
     </div>
     <div data-aos="fade-right" data-aos-delay="200" className="flex gap-5 p-6 rounded-xl bg-gradient-to-r from-green-950/40 to-transparent border border-green-900/30 hover:border-green-600/50 transition-all duration-300">
-      <div className="text-4xl flex-shrink-0">🌟</div>
+      <div className="w-14 h-14 flex-shrink-0">
+        <img src="/icons/12.svg" alt="Promise" className="w-full h-full object-contain" />
+      </div>
       <div>
         <h3 className="text-white font-bold text-xl mb-2 font-coolvetica">Our Promise</h3>
         <p className="text-gray-300 leading-relaxed font-open-sans">Every drum that leaves our Maharashtra facility carries with it a Certificate of Conformance, third-party test results, and the full weight of 30+ years of manufacturing integrity. We don't just sell cables — we sell the assurance that they will perform when it matters most.</p>
@@ -147,7 +166,7 @@ const VisionTab = () => (
   </div>
 );
 
-// --- Manufacturing Process Section (kept from before) ---
+// --- Manufacturing Process Section ---
 const ManufacturingSection = () => {
   const processes = [
     {
@@ -184,34 +203,39 @@ const ManufacturingSection = () => {
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const videoRef = useRef(null);
 
+  // Synchronize play/pause with video player state
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!videoRef.current) return;
+    if (isPaused) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [isPaused, activeIdx]);
 
-    const intervalTime = 8000; // 8 seconds per step
-    const updateFreq = 100; // update progress bar every 100ms
-    const totalSteps = intervalTime / updateFreq;
-    let stepCount = (progress / 100) * totalSteps;
+  const handleTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.duration) {
+      const currentProgress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
+      setProgress(currentProgress);
+    }
+  };
 
-    const timer = setInterval(() => {
-      stepCount += 1;
-      const newProgress = (stepCount / totalSteps) * 100;
-      setProgress(newProgress);
+  const handleVideoEnded = () => {
+    setProgress(0);
+    setActiveIdx((prevIdx) => (prevIdx + 1) % processes.length);
+  };
 
-      if (stepCount >= totalSteps) {
-        setActiveIdx((prevIdx) => (prevIdx + 1) % processes.length);
-        setProgress(0);
-        stepCount = 0;
-      }
-    }, updateFreq);
-
-    return () => clearInterval(timer);
-  }, [isPlaying, activeIdx, progress]);
-
-  const handleSelect = (idx) => {
+  const handleSelectStep = (idx) => {
     setActiveIdx(idx);
     setProgress(0);
+    setIsPaused(false); // Reset pause when switching steps
+  };
+
+  const handleVideoClick = () => {
+    setIsPaused((prev) => !prev);
   };
 
   return (
@@ -234,16 +258,14 @@ const ManufacturingSection = () => {
 
         {/* 2-Column Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-          {/* Left Column: Interactive Stepper list */}
+          {/* Left Column: Stepper list (Click to change process) */}
           <div className="lg:col-span-5 flex flex-col justify-start space-y-4">
             {processes.map((proc, index) => {
               const isActive = index === activeIdx;
               return (
                 <div
                   key={proc.name}
-                  onClick={() => handleSelect(index)}
-                  onMouseEnter={() => setIsPlaying(false)}
-                  onMouseLeave={() => setIsPlaying(true)}
+                  onClick={() => handleSelectStep(index)}
                   className={`group relative cursor-pointer text-left p-5 rounded-2xl border transition-all duration-500 flex items-start gap-4 ${
                     isActive
                       ? "bg-gradient-to-br from-red-950/40 via-red-950/20 to-transparent border-red-600/40 shadow-[0_4px_30px_rgba(239,68,68,0.1)]"
@@ -298,29 +320,43 @@ const ManufacturingSection = () => {
           {/* Right Column: Immersive Video Player */}
           <div className="lg:col-span-7 flex flex-col justify-between">
             <div 
-              onMouseEnter={() => setIsPlaying(false)}
-              onMouseLeave={() => setIsPlaying(true)}
-              className="relative rounded-3xl overflow-hidden bg-black border border-white/15 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] aspect-video w-full flex-grow flex items-center justify-center group"
+              onClick={handleVideoClick}
+              className="relative rounded-3xl overflow-hidden bg-black border border-white/15 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] aspect-video w-full flex-grow flex items-center justify-center group cursor-pointer"
             >
-              {/* Outer frame styling */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10 pointer-events-none" />
+              {/* Outer frame gradient accents */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 z-10 pointer-events-none" />
               
               {/* Video Player */}
               <video
+                ref={videoRef}
                 key={processes[activeIdx].videoPath}
                 src={processes[activeIdx].videoPath}
                 autoPlay
-                loop
                 muted
                 playsInline
-                className="w-full h-full object-cover transition-transform duration-700 scale-100 group-hover:scale-[1.02]"
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={handleVideoEnded}
+                className="w-full h-full object-cover transition-transform duration-700 scale-100 group-hover:scale-[1.01]"
               />
 
-              {/* Top corner accents */}
+              {/* Play Overlay Icon when paused (No dark background screen, crystal clear view!) */}
+              {isPaused && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none transition-opacity duration-300">
+                  <div className="w-16 h-16 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.7)] backdrop-blur-sm transform scale-100 animate-pulse">
+                    <svg className="w-8 h-8 fill-current ml-1" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              )}
+
+              {/* Top corner status badge */}
               <div className="absolute top-4 left-4 z-20 flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold uppercase bg-red-600/90 text-white tracking-wider flex items-center gap-1.5 backdrop-blur-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  Live View
+                <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 backdrop-blur-sm transition-colors duration-300 ${
+                  isPaused ? "bg-amber-600/90 text-white" : "bg-red-600/90 text-white"
+                }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${isPaused ? "bg-amber-200" : "bg-white animate-pulse"}`} />
+                  {isPaused ? "Paused (Click to play)" : "Live View"}
                 </span>
               </div>
 
@@ -343,19 +379,21 @@ const ManufacturingSection = () => {
             {/* Video Auto-Play Progress Bar */}
             <div className="mt-4 bg-white/5 rounded-full h-1 w-full overflow-hidden border border-white/5">
               <div
-                className="bg-red-600 h-full transition-all duration-100 ease-linear shadow-[0_0_8px_#ef4444]"
+                className={`h-full transition-all duration-75 ease-linear shadow-[0_0_8px_#ef4444] ${
+                  isPaused ? "bg-amber-500" : "bg-red-600"
+                }`}
                 style={{ width: `${progress}%` }}
               />
             </div>
 
             {/* Manual Controls indicator */}
             <div className="flex justify-between items-center mt-3 text-xs text-gray-500 px-1">
-              <span>Hover video or steps list to pause view</span>
+              <span>{isPaused ? "⏸️ Playback Paused (Click video to resume)" : "Click process on left to change video • Click video to pause/play"}</span>
               <div className="flex gap-2">
                 {processes.map((_, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleSelect(idx)}
+                    onClick={() => handleSelectStep(idx)}
                     className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                       idx === activeIdx ? "bg-red-600 w-6" : "bg-white/20 hover:bg-white/40"
                     }`}
@@ -396,16 +434,16 @@ const About = () => {
   }, []);
 
   const tabs = [
-    { id: 'values', label: 'Core Values', icon: '💎' },
-    { id: 'certifications', label: 'Certifications', icon: '✅' },
-    { id: 'vision', label: 'Vision & Mission', icon: '🔭' },
+    { id: 'values', label: 'Core Values', icon: <Diamond className="w-5 h-5 text-white" strokeWidth={2} /> },
+    { id: 'certifications', label: 'Certifications', icon: '/icons/quality-white.png' },
+    { id: 'vision', label: 'Vision & Mission', icon: <Telescope className="w-5 h-5 text-white" strokeWidth={2} /> },
   ];
 
   const stats = [
-    { value: 30, suffix: '+', label: 'Years of Expertise', icon: '📅' },
-    { value: 8, suffix: '+', label: 'Product Categories', icon: '🔌' },
-    { value: 50, suffix: '+', label: 'Clients Nationwide', icon: '🏭' },
-    { value: 100, suffix: '%', label: 'In-House Testing', icon: '🔬' },
+    { value: 30, suffix: '+', label: 'Years of Expertise', icon: '/icons/3.svg' },
+    { value: 8, suffix: '+', label: 'Product Categories', icon: <Layers className="w-3/4 h-3/4 text-white" strokeWidth={1.5} /> },
+    { value: 50, suffix: '+', label: 'Clients Nationwide', icon: <Map className="w-3/4 h-3/4 text-white" strokeWidth={1.5} /> },
+    { value: 100, suffix: '%', label: 'In-House Testing', icon: '/icons/6.svg' },
   ];
 
   return (
@@ -510,7 +548,12 @@ const About = () => {
                     : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <span>{tab.icon}</span> {tab.label}
+                {typeof tab.icon === 'string' ? (
+                  <img src={tab.icon} alt={tab.label} className="w-5 h-5 object-contain" />
+                ) : (
+                  <div className="flex items-center justify-center">{tab.icon}</div>
+                )}
+                {tab.label}
               </button>
             ))}
           </div>

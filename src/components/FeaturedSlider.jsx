@@ -70,7 +70,7 @@ export const ProductCard = ({ item }) => {
       }}
       className={hovered ? "transform -translate-y-1" : ""}
     >
-      <div style={{ borderRadius: "1px", overflow: "hidden", background: "linear-gradient(160deg, #b0c8e8 0%, #2a4a8a 55%, #1a2f6a 100%)", flex: "0 0 auto", height: "260px", position: "relative" }}>
+      <div style={{ borderRadius: "1px", overflow: "hidden", background: "linear-gradient(160deg, #f5f5f5 0%, #e0e0e0 100%)", flex: "0 0 auto", height: "260px", position: "relative" }}>
         <img
           src={item.headerImg}
           alt={item.productName}
@@ -96,10 +96,9 @@ export const ProductCard = ({ item }) => {
         <span style={{ color: "#E91F1F", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.01em", transform: hovered ? "translateX(10px)" : "translateX(0)", transition: "transform 0.35s cubic-bezier(.22,1,.36,1), color 0.25s" }}>
           View More
         </span>
-        <div style={{ display: "flex", alignItems: "center", gap: "4px", opacity: hovered ? 1 : 0.75, transform: hovered ? "translateX(-10px)" : "translateX(0)", transition: "opacity 0.3s ease, transform 0.35s cubic-bezier(.22,1,.36,1)" }}>
-          <div style={{ width: "36px", height: "2px", background: "#E91F1F", borderRadius: "2px" }} />
-          <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="#E91F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 6h8M6 2l4 4-4 4" />
+        <div style={{ display: "flex", alignItems: "center", opacity: hovered ? 1 : 0.75, transform: hovered ? "translateX(-10px)" : "translateX(0)", transition: "opacity 0.3s ease, transform 0.35s cubic-bezier(.22,1,.36,1)" }}>
+          <svg viewBox="0 0 149 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 sm:w-20 h-auto stroke-[#E91F1F]">
+            <path d="M0 10.8618H147.5M147.5 10.8618L136.5 0.361816M147.5 10.8618L136.5 21.3618" strokeWidth="3" />
           </svg>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
-import { O } from '../assets';
 
 const AboutShowcase = () => {
   const containerRef = useRef(null);
@@ -28,62 +27,48 @@ const AboutShowcase = () => {
   };
 
   return (
-    <div className="relative text-white overflow-hidden pb-20">
-      <div className="bg-black -mb-20">
-        <img src={O.wire} alt="Copper Wire Graphic" className="w-full h-2/3 object-contain" />
-        
+    <div className="relative text-white overflow-hidden">
+      {/* Top Wave transition using the modified wire image (transparent top, black bottom) */}
+      <div className="bg-[#f4f4f4] w-full overflow-hidden">
+        <img 
+          src="/Amppere Cable Wire cable black.png" 
+          alt="Copper Wire Graphic" 
+          className="w-full h-24 md:h-32 object-cover object-center block" 
+        />
+      </div>
+      
+      {/* Main black content area */}
+      <div className="bg-black -mt-0.5 pb-20">
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row items-center relative">
           {/* Left Side: Large Gradient Animated Heading with Cursor Spotlight Reveal */}
-          <div className="md:w-1/2 text-left md:pl-10" data-aos="fade-in">
+          <div className="md:w-[55%] text-left md:pl-10" data-aos="fade-in">
             <div 
               ref={containerRef}
               onMouseMove={handleMouseMove}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="relative py-4 select-none cursor-none overflow-hidden rounded-xl"
+              className="relative py-4 select-none rounded-xl"
             >
               {/* Base text (lower opacity) */}
-              <h1 className="font-inter text-5xl md:text-7xl font-bold leading-tight text-white/10 m-0">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-black font-outfit tracking-tight text-left leading-[1.05] text-white/10 m-0">
                 Manufacturing<br />Low Tension<br />Copper<br />Conductors
               </h1>
 
-              {/* Spotlight Reveal Overlay */}
+              {/* Spotlight Reveal Overlay (Text ONLY) */}
               <h1 
-                className="absolute top-4 left-0 w-full font-inter text-5xl md:text-7xl font-bold leading-tight bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 bg-200% animate-gradient-animation text-transparent bg-clip-text pointer-events-none m-0"
+                className="absolute top-4 left-0 w-full text-5xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-black font-outfit tracking-tight text-left leading-[1.05] bg-gradient-to-r from-red-500 via-pink-500 to-red-600 bg-200% animate-gradient-animation text-transparent bg-clip-text pointer-events-none m-0"
                 style={{
-                  clipPath: isHovered ? 'circle(125px at var(--x, 0px) var(--y, 0px))' : 'circle(0px at 0px 0px)',
+                  clipPath: isHovered ? 'circle(160px at var(--x, 0px) var(--y, 0px))' : 'circle(0px at 0px 0px)',
                   transition: 'clip-path 0.15s cubic-bezier(0.2, 0.8, 0.2, 1)'
                 }}
               >
                 Manufacturing<br />Low Tension<br />Copper<br />Conductors
               </h1>
-
-              {/* Creative Glowing Cursor Orb & Dot */}
-              {isHovered && (
-                <>
-                  {/* Large Ambient Glow */}
-                  <div 
-                    className="pointer-events-none absolute w-[240px] h-[240px] rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 blur-3xl z-10"
-                    style={{
-                      left: 'calc(var(--x, 0px) - 120px)',
-                      top: 'calc(var(--y, 0px) - 120px)',
-                    }}
-                  />
-                  {/* Small Precise Cursor Dot */}
-                  <div 
-                    className="pointer-events-none absolute w-5 h-5 rounded-full border border-purple-500/80 bg-purple-500/30 z-20 shadow-[0_0_10px_rgba(168,85,247,0.5)]"
-                    style={{
-                      left: 'calc(var(--x, 0px) - 10px)',
-                      top: 'calc(var(--y, 0px) - 10px)',
-                    }}
-                  />
-                </>
-              )}
             </div>
           </div>
 
           {/* Right Side: Text & Read More Link with Certificate Links */}
-          <div className="font-inter md:w-1/2 mt-6 md:mt-0 text-left p-4" data-aos="fade-in">
+          <div className="font-inter md:w-[45%] mt-6 md:mt-0 text-left p-4" data-aos="fade-in">
             <p className="mb-4 text-white leading-relaxed">
               An emerging manufacturer in the cable industry, the company boasts 30 years of core manufacturing experience and has been producing wires and cables independently for the past 4 years.
               <br />

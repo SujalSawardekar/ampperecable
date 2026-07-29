@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { O } from '../assets';
 import Breadcrumbs from '../components/Breadcrumbs';
 import useSEO from '../hooks/useSEO';
 
 const Founder = () => {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
   useSEO(
     "Sandeep Sawant – Founder & MD | Amppere Cable",
     "Read the message from Sandeep Sawant, Founder & MD of Amppere Cable. Under his leadership, Amppere Cable has built over 30 years of trust in cable manufacturing."
@@ -65,35 +86,78 @@ const Founder = () => {
         </div>
       </div>
 
-      {/* Recognitions & Awards Section */}
-      <div className="bg-[#111218] py-16 lg:py-24 border-t border-white/5 relative z-20">
-        <div className="max-w-screen-xl mx-auto px-6 sm:px-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-12 font-outfit">Our Recognitions & Awards</h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {certificates.map((cert, idx) => (
-              <a 
-                key={idx} 
-                href={cert.path}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group cursor-pointer relative bg-[#1a1b23] border border-white/10 rounded-lg p-8 flex flex-col justify-center items-center h-48 transition-all duration-300 hover:border-[#cc1111] hover:shadow-[0_0_20px_rgba(204,17,17,0.2)] hover:-translate-y-1 block no-underline"
-              >
-                {/* Decorative subtle icon or watermark */}
-                <svg className="w-12 h-12 text-white/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover:text-[#cc1111]/10 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 15.2l-5.2 2.7 1-5.8L3.6 8l5.8-.8L12 2l2.6 5.2 5.8.8-4.2 4.1 1 5.8z"/>
-                </svg>
-                
-                <h3 className="text-white font-bold text-center text-sm md:text-base leading-snug z-10 font-outfit relative">
-                  {cert.title}
-                </h3>
-                
-                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 relative">
-                  <span className="text-[#cc1111] text-xs font-semibold tracking-widest uppercase">View Certificate</span>
-                </div>
-              </a>
-            ))}
+      {/* NEW FULL-WIDTH SECTION: Instagram Reel with "THE BOSS" Typography */}
+      <div className="relative w-full flex items-center justify-center py-24 bg-gradient-to-b from-transparent via-[#cc1111]/5 to-transparent border-y border-white/5 overflow-hidden">
+        {/* Background Ambient Glow */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-full max-w-[1200px] h-[500px] bg-[#cc1111]/15 rounded-full blur-[160px]"></div>
+        </div>
+
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 lg:gap-16 w-full max-w-7xl mx-auto px-4">
+          {/* The Text "THE" */}
+          <div className="hidden md:flex flex-1 justify-end z-20 pointer-events-none">
+            <span className="text-[7rem] lg:text-[10rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white/90 to-white/20 tracking-tighter uppercase font-outfit drop-shadow-[0_10px_30px_rgba(255,255,255,0.15)]">THE</span>
           </div>
+
+          {/* The Video Embed */}
+          <div className="relative z-10 w-full max-w-[320px] transform hover:scale-[1.05] hover:-rotate-2 transition-all duration-700 group">
+             {/* Soft, circular red glow behind the video container (prevents boxy shadows) */}
+             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[140%] h-[120%] bg-[#cc1111]/40 rounded-[100px] blur-[80px] pointer-events-none -z-10 group-hover:bg-[#cc1111]/60 group-hover:blur-[100px] transition-all duration-700"></div>
+             
+             <div className="relative rounded-[32px] overflow-hidden border-2 border-[#cc1111]/40 bg-[#000] p-1.5 w-full">
+               <video 
+                 ref={videoRef}
+                 src="/THE_BOSS.mp4"
+                 className="relative z-10 w-full h-[560px] object-cover rounded-[26px]"
+                 autoPlay
+                 loop
+                 muted={isMuted}
+                 playsInline
+               />
+               
+               {/* Video Controls Overlay */}
+               <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 flex items-center gap-4 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                 {/* Play/Pause Button */}
+                 <button 
+                   onClick={togglePlay}
+                   className="text-white hover:text-[#cc1111] transition-colors focus:outline-none"
+                   aria-label={isPlaying ? "Pause video" : "Play video"}
+                 >
+                   {isPlaying ? (
+                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                   ) : (
+                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                   )}
+                 </button>
+                 
+                 {/* Mute/Unmute Button */}
+                 <button 
+                   onClick={toggleMute}
+                   className="text-white hover:text-[#cc1111] transition-colors focus:outline-none"
+                   aria-label={isMuted ? "Unmute video" : "Mute video"}
+                 >
+                   {isMuted ? (
+                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                   ) : (
+                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                   )}
+                 </button>
+               </div>
+
+               {/* Minimal Glass Bezel Effect */}
+               <div className="absolute inset-0 z-20 rounded-[32px] ring-1 ring-inset ring-white/10 pointer-events-none"></div>
+             </div>
+          </div>
+
+          {/* The Text "BOSS" */}
+          <div className="hidden md:flex flex-1 justify-start z-20 pointer-events-none">
+            <span className="text-[7rem] lg:text-[10rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-[#cc1111] to-[#ff4d4d] tracking-tighter uppercase font-outfit drop-shadow-[0_0_50px_rgba(204,17,17,0.6)]">BOSS</span>
+          </div>
+        </div>
+        
+        {/* Mobile Text (Fallback when hidden on sides) */}
+        <div className="absolute top-6 w-full text-center md:hidden pointer-events-none">
+          <span className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white/80 via-[#cc1111] to-[#cc1111] tracking-tighter uppercase font-outfit drop-shadow-lg">THE BOSS</span>
         </div>
       </div>
     </div>

@@ -204,11 +204,11 @@ const SocialShowcase = () => {
 
   return (
     <section className="bg-black py-[72px] px-6 w-full box-border">
-      <div className="text-center mb-12">
-        <h2 className="margin-0 mb-3 font-inter text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-          Connect With Us Across Platforms
+      <div className="text-center mb-12 max-w-7xl mx-auto flex flex-col items-center">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-outfit tracking-tight text-center m-0 mb-3 text-white">
+          CONNECT WITH US
         </h2>
-        <p className="margin-0 font-inter text-sm md:text-base text-gray-400 max-w-lg mx-auto leading-relaxed">
+        <p className="margin-0 font-inter text-sm md:text-base text-gray-400 max-w-lg text-center leading-relaxed">
           Follow our journey, stay updated with the latest wire and cable innovations, and join our professional community on your favorite networks.
         </p>
       </div>

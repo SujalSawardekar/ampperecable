@@ -15,53 +15,104 @@ const clientLogos = [
 
 const ClientsSection = React.memo(() => {
   return (
-    <div className="bg-white pt-12 md:pt-16 p-6 md:pb-16 md:px-48">
-      <div className="flex flex-col md:flex-row items-center justify-between">
-        <div className="text-left mb-6 md:mb-0">
-          <div className="flex items-center">
-            <p className="text-[#880000] font-bold text-2xl md:text-4xl mr-2 font-inter">OUR ESTEEMED</p>
-            <p className="text-black font-bold text-2xl md:text-4xl font-inter">CLIENTS</p>
+    <section className="bg-[#f4f4f4] py-20 md:py-32 px-6 md:px-12 lg:px-20 overflow-hidden font-inter border-y border-black/5">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-16 lg:gap-8">
+          
+          {/* ── LEFT SIDE: Text Block (1/3 width) ────────────────────────────── */}
+          <div className="w-full lg:w-1/3 flex flex-col justify-center relative z-20">
+            
+            {/* Matching Section Title Style (Like OUR GOALS) */}
+            <div className="flex flex-col gap-1 mb-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span
+                  style={{ background: '#C62828' }}
+                  className="w-2 h-2 rounded-full inline-block animate-pulse"
+                />
+                <p
+                  style={{ color: '#C62828' }}
+                  className="text-xs font-bold tracking-[0.25em] uppercase m-0"
+                >
+                  Trusted Partners
+                </p>
+              </div>
+              <div className="flex items-baseline gap-2 mt-1 font-outfit text-left">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-outfit tracking-tight text-left m-0">
+                  <span style={{ color: '#C62828' }} className="mr-3">OUR</span>
+                  <span style={{ color: '#111111' }}>CLIENTS</span>
+                </h2>
+              </div>
+            </div>
+
+            {/* Description */}
+            <p className="text-lg text-neutral-600 font-inter leading-relaxed max-w-sm mb-10">
+              Amppere Cable has the opportunity to work with many prestigious clients across industrial, aerospace, and commercial sectors.
+            </p>
+
+            {/* Action Button */}
+            <div>
+              <Link
+                to="/clients"
+                className="inline-flex items-center gap-2.5 bg-white border border-neutral-200 text-neutral-900 px-7 py-3 rounded-full font-bold text-sm hover:bg-[#C62828] hover:text-white hover:border-[#C62828] transition-all duration-300 shadow-sm hover:shadow-md group"
+              >
+                <span>View all clients</span>
+                <svg 
+                  className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </div>
           </div>
-          <p className="text-black mt-2 font-inter">AMMPERE CABLE got an opportunity to work with many prestigious clients.</p>
-        </div>
 
-        <div>
-          <Link
-            to="/clients"
-            className="font-inter bg-[#AE1B1B] text-white px-6 py-2 rounded-md hover:bg-red-800 flex items-center transition-colors shadow-md"
-          >
-            <span>View our clients</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 ml-2" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M6.79 4.093a.5.5 0 0 1 .607-.064l4.5 3a.5.5 0 0 1 0 .854l-4.5 3A.5.5 0 0 1 6 10.5v-6a.5.5 0 0 1 .79-.407z" />
-            </svg>
-          </Link>
+          {/* ── RIGHT SIDE: Marquee Rows (2/3 width) ────────────────────────────── */}
+          <div className="w-full lg:w-2/3 relative flex flex-col gap-y-12 overflow-hidden py-10 mask-edges">
+            
+            {/* Subtle gradient masks for smooth fade at horizontal edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-r from-[#f4f4f4] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 lg:w-32 bg-gradient-to-l from-[#f4f4f4] to-transparent z-10 pointer-events-none" />
+
+            {/* Row 1: Left to Right */}
+            <div className="flex animate-marquee whitespace-nowrap items-center gap-16 md:gap-24">
+              {clientLogos.concat(clientLogos).map((logo, idx) => (
+                <div key={`row1-${idx}`} className="flex items-center justify-center flex-shrink-0">
+                  <img
+                    src={logo.logo}
+                    alt={logo.name}
+                    className="h-8 md:h-10 lg:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Row 2: Right to Left */}
+            <div className="flex animate-marquee whitespace-nowrap items-center gap-16 md:gap-24" style={{ animationDirection: 'reverse' }}>
+              {clientLogos.slice().reverse().concat(clientLogos.slice().reverse()).map((logo, idx) => (
+                <div key={`row2-${idx}`} className="flex items-center justify-center flex-shrink-0">
+                  <img
+                    src={logo.logo}
+                    alt={logo.name}
+                    className="h-8 md:h-10 lg:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
       </div>
-
-      {/* Marquee slider */}
-      <div className="relative overflow-hidden mt-16 mb-20">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {clientLogos.map((logo, idx) => (
-            <img
-              key={`logo-1-${idx}`}
-              src={logo.logo}
-              alt={logo.name}
-              className="h-6 md:h-10 mx-4 md:mx-8 object-contain"
-              loading="lazy"
-            />
-          ))}
-          {clientLogos.map((logo, idx) => (
-            <img
-              key={`logo-2-${idx}`}
-              src={logo.logo}
-              alt={logo.name}
-              className="h-10 mx-8 object-contain"
-              loading="lazy"
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+      <style>{`
+        .mask-edges {
+          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+      `}</style>
+    </section>
   );
 });
 
