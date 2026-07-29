@@ -252,7 +252,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
       <div
         style={{
           position: 'absolute',
-          top: isMobile ? '22vh' : '20vh',
+          top: isMobile ? '16vh' : '20vh',
           left: '50%',
           transform: isLoaded 
             ? (progress > 0.01 && !isMobile
@@ -307,7 +307,7 @@ const HeroScroll3D = ({ isMobile = false }) => {
           zIndex: 30,
           opacity: isLoaded ? (isMobile ? 1 : Math.max(0, 1 - Math.max(0, progress - 0.92) * 15)) : 0,
           left: isMobile ? '50%' : (progress > 0.01 ? (windowWidth >= 768 ? '4rem' : '2rem') : '50%'),
-          bottom: isMobile ? '2.5rem' : (progress > 0.01 ? '2rem' : '5.8rem'),
+          bottom: isMobile ? '7.5rem' : (progress > 0.01 ? '2rem' : '5.8rem'),
           transform: isLoaded 
             ? ((isMobile || progress > 0.01)
                 ? (isMobile ? 'translateX(-50%) translateY(0)' : 'translateX(0) translateY(0)') 

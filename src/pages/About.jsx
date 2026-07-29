@@ -447,15 +447,14 @@ const About = () => {
   ];
 
   return (
-    <div className="w-full bg-[#000000] pt-[64px] md:pt-[76px]">
-      <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "About Us", path: null }]} isDarkTheme={true} />
+    <div className="w-full bg-[#000000]">
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-b from-[#0d0d0d] via-[#120a0a] to-black">
         {/* Background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-red-900/20 blur-[120px] pointer-events-none" />
         
-        <div className="relative max-w-6xl mx-auto px-4 md:px-8 pt-8 pb-16 md:py-28 text-center">
+        <div className="relative max-w-6xl mx-auto px-4 md:px-8 pt-24 pb-12 md:py-28 text-center">
           <div data-aos="fade-down" className="inline-flex items-center gap-2 bg-red-950/40 border border-red-800/30 text-red-400 text-xs font-bold tracking-[0.3em] uppercase px-4 py-2 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
             Est. 1993 · Maharashtra, India
@@ -480,7 +479,7 @@ const About = () => {
 
       {/* Animated Stats */}
       <div ref={statsRef} className="border-t border-b border-white/5 bg-black/40">
-        <div className="max-w-5xl mx-auto px-4 md:px-8 py-10 md:py-14">
+        <div className="max-w-5xl mx-auto px-4 md:px-8 py-8 md:py-14">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {stats.map((s, i) => (
               <StatCard key={i} {...s} startCounting={statsStarted} />
@@ -490,7 +489,7 @@ const About = () => {
       </div>
 
       {/* Company Description */}
-      <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-20">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div data-aos="fade-right">
             <p className="text-xs font-semibold text-red-500 tracking-[0.3em] uppercase mb-3">Who We Are</p>
@@ -530,7 +529,7 @@ const About = () => {
 
       {/* Interactive Tabs Section */}
       <div id="deep-dive-section" className="bg-gradient-to-b from-black to-[#0a0505] border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 md:px-8 py-10 md:py-20">
           <div className="text-center mb-10" data-aos="fade-up">
             <p className="text-xs font-semibold text-red-500 tracking-[0.3em] uppercase mb-3">Deep Dive</p>
             <h2 className="text-3xl md:text-4xl font-bold text-white">What Drives Us</h2>
@@ -582,7 +581,7 @@ const About = () => {
 
       {/* CTA Banner */}
       <div className="bg-black border-t border-white/5">
-        <div className="max-w-4xl mx-auto px-4 md:px-8 py-16 text-center" data-aos="fade-up">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-16 text-center" data-aos="fade-up">
           <h2 className="text-3xl md:text-4xl font-coolvetica font-bold text-white mb-4">Ready to Work With Us?</h2>
           <p className="text-gray-400 mb-8 font-open-sans max-w-xl mx-auto">Whether you need fire-rated cables for a new facility or a custom instrumentation cable solution, our team is ready to help.</p>
           <div className="flex flex-wrap gap-4 justify-center">
