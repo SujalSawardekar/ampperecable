@@ -16,13 +16,13 @@ const productsData = [
     link: "/product/Fire%20Resistant%20Cables"
   },
   {
-    title: "Smoke Detection Cables",
-    image: O.productImg_3,
-    description: "High-precision signal transmission with Low Smoke Zero Halogen (LSZH) insulation, preventing toxic smoke emissions in enclosed environments.",
-    link: "/product/Smoke%20Detection%20Cables"
+    title: "Instrumentation Signal Cables",
+    image: O.productImg_5,
+    description: "Designed for precise and interference-free transmission of low-level signals in industrial automation and process control systems, shielding critical data from EMI.",
+    link: "/product/Instrumentation%20Signal%20Cables"
   },
   {
-    title: "Power LT & Control Cables",
+    title: "Power LT Cables",
     image: O.productImg_4,
     description: "Heavy-duty low tension copper conductors built for industrial infrastructure, delivering uncompromising voltage stability and long-term durability.",
     link: "/product/Power%20LT%20Cables"
