@@ -86,7 +86,7 @@ const Founder = () => {
         </div>
       </div>
 
-      {/* NEW FULL-WIDTH SECTION: Instagram Reel with "THE FOUNDER" Typography */}
+      {/* NEW FULL-WIDTH SECTION: Instagram Reel with "THE HEAD" Typography */}
       <div className="relative w-full flex items-center justify-center py-24 bg-gradient-to-b from-transparent via-[#cc1111]/5 to-transparent border-y border-white/5 overflow-hidden">
         {/* Background Ambient Glow */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -96,7 +96,7 @@ const Founder = () => {
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 lg:gap-16 w-full max-w-7xl mx-auto px-4">
           {/* The Text "THE" */}
           <div className="hidden md:flex flex-1 justify-end z-20 pointer-events-none">
-            <span className="text-[5rem] lg:text-[7.5rem] xl:text-[9rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white/90 to-white/20 tracking-tighter uppercase font-outfit drop-shadow-[0_10px_30px_rgba(255,255,255,0.15)]">THE</span>
+            <span className="text-[7rem] lg:text-[10rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white/90 to-white/20 tracking-tighter uppercase font-outfit drop-shadow-[0_10px_30px_rgba(255,255,255,0.15)]">THE</span>
           </div>
 
           {/* The Video Embed */}
@@ -149,15 +149,15 @@ const Founder = () => {
              </div>
           </div>
 
-          {/* The Text "FOUNDER" */}
+          {/* The Text "HEAD" */}
           <div className="hidden md:flex flex-1 justify-start z-20 pointer-events-none">
-            <span className="text-[5rem] lg:text-[7.5rem] xl:text-[9rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-[#cc1111] to-[#ff4d4d] tracking-tighter uppercase font-outfit drop-shadow-[0_0_50px_rgba(204,17,17,0.6)]">FOUNDER</span>
+            <span className="text-[7rem] lg:text-[10rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-tl from-[#cc1111] to-[#ff4d4d] tracking-tighter uppercase font-outfit drop-shadow-[0_0_50px_rgba(204,17,17,0.6)]">HEAD</span>
           </div>
         </div>
         
         {/* Mobile Text (Fallback when hidden on sides) */}
         <div className="absolute top-6 w-full text-center md:hidden pointer-events-none">
-          <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white/80 via-[#cc1111] to-[#cc1111] tracking-tighter uppercase font-outfit drop-shadow-lg">THE FOUNDER</span>
+          <span className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white/80 via-[#cc1111] to-[#cc1111] tracking-tighter uppercase font-outfit drop-shadow-lg">THE HEAD</span>
         </div>
       </div>
     </div>
