@@ -10,10 +10,10 @@ const productsData = [
     link: "/product/Fire%20Alarm%20Cables"
   },
   {
-    title: "Fire Resistant Cables",
+    title: "Flame Retardant",
     image: O.productImg_2,
     description: "Engineered to withstand extreme temperatures up to 950°C during fire emergencies, keeping emergency lighting, pumps, and alarms fully operational.",
-    link: "/product/Fire%20Resistant%20Cables"
+    link: "/product/Flame%20Retardant"
   },
   {
     title: "Instrumentation Signal Cables",

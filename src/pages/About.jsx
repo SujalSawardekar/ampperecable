@@ -457,7 +457,7 @@ const About = () => {
         <div className="relative max-w-6xl mx-auto px-4 md:px-8 pt-24 pb-12 md:py-28 text-center">
           <div data-aos="fade-down" className="inline-flex items-center gap-2 bg-red-950/40 border border-red-800/30 text-red-400 text-xs font-bold tracking-[0.3em] uppercase px-4 py-2 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-            Est. 1993 · Maharashtra, India
+            Est. 2019 · Maharashtra, India
           </div>
           <h1 data-aos="fade-up" className="text-4xl md:text-6xl lg:text-7xl font-coolvetica font-bold text-white mb-6 leading-tight">
             Built on <span className="text-red-500">30 Years</span><br />of Cable Expertise

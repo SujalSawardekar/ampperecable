@@ -4,7 +4,7 @@ export const categories = [
     products: [
       ["Fire Alarm Cables", "/product/Fire Alarm Cables"],
       ["Fire Survival Cables", "/product/Fire Survival Cables"],
-      ["Fire Resistant Cables", "/product/Fire Resistant Cables"],
+      ["Flame Retardant", "/product/Flame Retardant"],
       ["Smoke Detection Cables", "/product/Smoke Detection Cables"]
     ]
   },

@@ -15,14 +15,14 @@ export const products = [
   },
   {
     productId: 2,
-    productName: "Fire Resistant Cables",
+    productName: "Flame Retardant",
     headerImg: O.productImg_2,
     detailsImg: O.productDetails_2,
     data: [
-      { id: 1, title: "Introduction", description: "Fire Resistant Cables are built to continue functioning under fire exposure, ensuring both power and signal transmission remain active during emergencies." },
+      { id: 1, title: "Introduction", description: "Flame Retardant Cables are built to continue functioning under fire exposure, ensuring both power and signal transmission remain active during emergencies." },
       { id: 2, title: "Applications", description: "Commonly used in high-rise buildings, industrial plants, power stations, tunnels, and safety-critical infrastructure projects." },
       { id: 3, title: "Features", description: "Available in armoured (mechanical protection) and flexible variants, Flame-retardant insulation, High mechanical strength, Long-lasting durability." },
-      { id: 4, title: "Why our Cables", description: "Our fire resistant cables combine safety compliance, advanced insulation technology, and superior build quality for dependable protection." }
+      { id: 4, title: "Why our Cables", description: "Our flame retardant cables combine safety compliance, advanced insulation technology, and superior build quality for dependable protection." }
     ]
   },
   {
