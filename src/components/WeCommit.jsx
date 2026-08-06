@@ -38,7 +38,7 @@ const WeCommit = () => {
           <img
             src="/handshake.png"
             alt="Handshake"
-            className="h-auto w-3/5 md:w-3/5 relative z-30 mb-8 md:-mb-24 p-0 drop-shadow-[0_25px_35px_rgba(0,0,0,0.7)] transition-all duration-300 animate-float"
+            className="h-auto w-3/5 md:w-3/5 relative z-30 -translate-y-12 md:-translate-y-20 mb-8 md:-mb-24 p-0 drop-shadow-[0_20px_50px_rgba(220,38,38,0.4)] transition-all duration-300 animate-float"
             data-aos="fade-down"
             data-aos-duration="400"
           />

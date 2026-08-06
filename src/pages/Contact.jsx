@@ -25,13 +25,23 @@ const Contact = ({ isDealership = false }) => {
   const [successMsg, setSuccessMsg] = useState("");
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === "phone") {
+      // Allow only numbers, plus, dashes, parentheses, and spaces
+      const phoneRegex = /^[0-9+\- ()]*$/;
+      if (!phoneRegex.test(value)) {
+        return;
+      }
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
     setSuccessMsg("");
@@ -43,22 +53,42 @@ const Contact = ({ isDealership = false }) => {
 
     setLoading(true);
 
-    const subject = isDealership ? "Dealership Application" : "New Contact Inquiry";
-    const body = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\n${isDealership ? 'Company / Firm Name' : 'Service'}: ${formData.service || 'N/A'}\n\nMessage:\n${formData.message}`;
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/8567a060c66a2e905e10927aa43c4675", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "N/A",
+          service: formData.service || "N/A",
+          message: formData.message,
+          _subject: isDealership ? "Dealership Application - Amppere Cable" : "New Contact Inquiry - Amppere Cable",
+          _cc: "infoampperecable@gmail.com",
+          _template: "table"
+        })
+      });
 
-    const mailtoLink = `mailto:askampperecable@gmail.com,infoampperecable@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    
-    window.location.href = mailtoLink;
-
-    setLoading(false);
-    setSuccessMsg("Opening mail client...");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      message: ""
-    });
+      if (response.ok) {
+        setSuccessMsg("Message sent successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: ""
+        });
+      } else {
+        setErrorMsg("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      setErrorMsg("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
