@@ -36,8 +36,8 @@ const WeCommit = () => {
           <div className="absolute inset-0 m-auto w-48 h-48 border border-red-500/20 rounded-full animate-[spin_7s_linear_infinite_reverse]" />
           
           <img
-            src={O.commit}
-            alt="Hand Holding Heart"
+            src="/handshake.png"
+            alt="Handshake"
             className="h-auto w-3/5 md:w-3/5 relative z-30 mb-8 md:-mb-24 p-0 drop-shadow-[0_25px_35px_rgba(0,0,0,0.7)] transition-all duration-300 animate-float"
             data-aos="fade-down"
             data-aos-duration="400"

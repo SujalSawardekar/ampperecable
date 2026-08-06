@@ -16,6 +16,7 @@ const Contact = ({ isDealership = false }) => {
     name: "",
     email: "",
     phone: "",
+    service: "",
     message: ""
   });
   
@@ -42,17 +43,22 @@ const Contact = ({ isDealership = false }) => {
 
     setLoading(true);
 
-    // Simulate API request to "/api/sendMail"
-    setTimeout(() => {
-      setLoading(false);
-      setSuccessMsg("Message sent successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
-      });
-    }, 1200);
+    const subject = isDealership ? "Dealership Application" : "New Contact Inquiry";
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone || 'N/A'}\n${isDealership ? 'Company / Firm Name' : 'Service'}: ${formData.service || 'N/A'}\n\nMessage:\n${formData.message}`;
+
+    const mailtoLink = `mailto:askampperecable@gmail.com,infoampperecable@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    window.location.href = mailtoLink;
+
+    setLoading(false);
+    setSuccessMsg("Opening mail client...");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      message: ""
+    });
   };
 
   return (
@@ -190,6 +196,8 @@ const Contact = ({ isDealership = false }) => {
               <input
                 type="text"
                 name="service"
+                value={formData.service}
+                onChange={handleChange}
                 placeholder={isDealership ? "Company / Firm Name" : "Service You're Interested"}
                 className="w-full bg-[#1f0b0e]/90 border border-white/10 text-white placeholder:text-gray-500 px-5 py-4 rounded-xl focus:outline-none focus:border-red-500 transition-colors"
               />
